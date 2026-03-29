@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>ML Fundamentals Quiz</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<title>แบบทดสอบ ML พื้นฐาน</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0c0f;
@@ -28,12 +28,11 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Lora', serif;
+    font-family: 'Sarabun', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
   }
 
-  /* Background grid */
   body::before {
     content: '';
     position: fixed;
@@ -47,23 +46,12 @@
     pointer-events: none;
   }
 
-  #app {
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
-  }
+  #app { position: relative; z-index: 1; min-height: 100vh; }
 
   /* ========== HOME ========== */
-  #home {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 40px 20px 80px;
-  }
+  #home { max-width: 680px; margin: 0 auto; padding: 40px 20px 80px; }
 
-  .home-header {
-    text-align: center;
-    margin-bottom: 48px;
-  }
+  .home-header { text-align: center; margin-bottom: 48px; }
 
   .home-badge {
     display: inline-block;
@@ -80,42 +68,57 @@
 
   .home-title {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(32px, 8vw, 56px);
+    font-size: clamp(28px, 7vw, 52px);
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1.1;
     letter-spacing: -1px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
   .home-title span {
     color: var(--accent);
     display: block;
+    font-family: 'Sarabun', sans-serif;
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 700;
+    letter-spacing: 0;
   }
 
   .home-sub {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 15px;
     color: var(--text-muted);
-    margin-top: 16px;
+    margin-top: 14px;
   }
 
-  .topic-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .total-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 12px;
   }
+
+  .total-badge strong { color: var(--accent); }
+
+  .topic-grid { display: flex; flex-direction: column; gap: 10px; }
 
   .topic-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px 24px;
+    padding: 18px 20px;
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 12px;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -125,58 +128,43 @@
     transform: translateX(4px);
   }
 
-  .topic-card.completed {
-    border-color: rgba(79,255,176,0.3);
-  }
+  .topic-card.completed { border-color: rgba(79,255,176,0.35); }
 
-  .topic-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex: 1;
-    min-width: 0;
-  }
+  .topic-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
 
   .topic-num {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: var(--text-dim);
-    min-width: 28px;
+    min-width: 26px;
     flex-shrink: 0;
   }
 
   .topic-info { min-width: 0; }
 
   .topic-name {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Sarabun', sans-serif;
     font-size: 15px;
     font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.4;
   }
 
   .topic-meta {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: var(--text-muted);
-    margin-top: 3px;
+    margin-top: 2px;
   }
+
+  .topic-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
   .topic-score {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
     color: var(--accent);
-    flex-shrink: 0;
   }
 
-  .topic-arrow {
-    color: var(--text-dim);
-    font-size: 18px;
-    flex-shrink: 0;
-    transition: color 0.2s;
-  }
-
+  .topic-arrow { color: var(--text-dim); font-size: 18px; transition: color 0.2s; }
   .topic-card:hover .topic-arrow { color: var(--accent); }
 
   /* ========== QUIZ ========== */
@@ -189,22 +177,22 @@
     background: rgba(10,12,15,0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    padding: 16px 20px;
+    padding: 14px 20px;
   }
 
   .quiz-header-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .back-btn {
     background: none;
     border: 1px solid var(--border);
     color: var(--text-muted);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px;
     padding: 7px 14px;
     border-radius: var(--radius-sm);
     cursor: pointer;
@@ -215,22 +203,16 @@
   .back-btn:hover { border-color: var(--text-muted); color: var(--text); }
 
   .quiz-topic-label {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Sarabun', sans-serif;
     font-size: 13px;
     font-weight: 600;
     color: var(--accent);
     text-align: right;
-    max-width: 160px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: 180px;
+    line-height: 1.3;
   }
 
-  .progress-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .progress-row { display: flex; align-items: center; gap: 12px; }
 
   .progress-bar {
     flex: 1;
@@ -255,18 +237,13 @@
     text-align: right;
   }
 
-  .quiz-body {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 32px 20px 80px;
-  }
+  /* ========== QUESTION ========== */
+  .quiz-body { max-width: 680px; margin: 0 auto; padding: 28px 20px 80px; }
 
-  .question-card {
-    animation: fadeUp 0.3s ease;
-  }
+  .question-card { animation: fadeUp 0.3s ease; }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(14px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -276,19 +253,19 @@
     color: var(--text-muted);
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .question-text {
     font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 28px;
-    font-weight: 400;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-weight: 500;
   }
 
   .question-text code {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
+    font-size: 13px;
     background: var(--surface2);
     border: 1px solid var(--border);
     padding: 2px 7px;
@@ -296,28 +273,24 @@
     color: var(--accent3);
   }
 
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
 
   .option-btn {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 16px 20px;
+    padding: 15px 18px;
     cursor: pointer;
     text-align: left;
-    font-family: 'Lora', serif;
-    font-size: 15px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 16px;
     color: var(--text);
     display: flex;
     align-items: flex-start;
-    gap: 14px;
+    gap: 12px;
     transition: all 0.15s ease;
     -webkit-tap-highlight-color: transparent;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   .option-btn:hover:not(:disabled) {
@@ -327,16 +300,16 @@
 
   .option-key {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text-muted);
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 5px;
-    padding: 2px 8px;
-    min-width: 30px;
+    padding: 2px 7px;
+    min-width: 28px;
     text-align: center;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 3px;
     transition: all 0.15s;
   }
 
@@ -346,7 +319,6 @@
     border-color: var(--correct);
     background: rgba(79,255,176,0.08);
   }
-
   .option-btn.correct .option-key {
     background: var(--correct);
     border-color: var(--correct);
@@ -358,7 +330,6 @@
     border-color: var(--wrong);
     background: rgba(255,107,107,0.08);
   }
-
   .option-btn.wrong .option-key {
     background: var(--wrong);
     border-color: var(--wrong);
@@ -367,42 +338,42 @@
   }
 
   .explanation {
-    margin-top: 20px;
+    margin-top: 18px;
     background: var(--surface2);
     border: 1px solid var(--border);
     border-left: 3px solid var(--accent);
     border-radius: var(--radius);
-    padding: 16px 20px;
-    font-size: 14px;
-    line-height: 1.7;
+    padding: 16px 18px;
+    font-size: 15px;
+    line-height: 1.75;
     color: var(--text-muted);
     animation: fadeUp 0.3s ease;
   }
 
   .explanation strong {
     color: var(--text);
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
     display: block;
     margin-bottom: 6px;
   }
 
   .next-btn {
-    margin-top: 24px;
+    margin-top: 20px;
     width: 100%;
     background: var(--accent);
     color: #000;
     border: none;
     border-radius: var(--radius);
     padding: 16px;
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
     transition: opacity 0.2s;
     -webkit-tap-highlight-color: transparent;
     display: none;
-    letter-spacing: 0.5px;
   }
 
   .next-btn:hover { opacity: 0.85; }
@@ -412,9 +383,9 @@
   #result { display: none; }
 
   .result-wrap {
-    max-width: 500px;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 56px 20px;
     text-align: center;
   }
 
@@ -423,7 +394,7 @@
     height: 140px;
     border-radius: 50%;
     border: 3px solid var(--border);
-    margin: 0 auto 28px;
+    margin: 0 auto 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -440,11 +411,14 @@
     border: 3px solid transparent;
     border-top-color: var(--accent);
     border-right-color: var(--accent);
+    animation: spin 2s linear infinite;
   }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   .result-pct {
     font-family: 'Syne', sans-serif;
-    font-size: 40px;
+    font-size: 38px;
     font-weight: 800;
     color: var(--accent);
     line-height: 1;
@@ -452,14 +426,29 @@
 
   .result-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-muted);
     margin-top: 4px;
   }
 
+  .grade-badge {
+    display: inline-block;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .grade-s { background: rgba(79,255,176,0.15); color: var(--correct); border: 1px solid var(--correct); }
+  .grade-a { background: rgba(79,255,176,0.08); color: #a0f0c0; border: 1px solid rgba(79,255,176,0.35); }
+  .grade-b { background: rgba(255,209,102,0.1); color: var(--accent3); border: 1px solid rgba(255,209,102,0.35); }
+  .grade-c { background: rgba(255,107,107,0.1); color: var(--wrong); border: 1px solid rgba(255,107,107,0.35); }
+
   .result-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 28px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 26px;
     font-weight: 700;
     margin-bottom: 8px;
   }
@@ -467,22 +456,22 @@
   .result-sub {
     font-size: 15px;
     color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 32px;
+    line-height: 1.7;
+    margin-bottom: 28px;
   }
 
   .result-stats {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     justify-content: center;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
     flex-wrap: wrap;
   }
 
   .stat-chip {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    padding: 8px 16px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
     border-radius: 100px;
     border: 1px solid var(--border);
   }
@@ -490,11 +479,7 @@
   .stat-chip.c { border-color: var(--correct); color: var(--correct); }
   .stat-chip.w { border-color: var(--wrong); color: var(--wrong); }
 
-  .result-btns {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .result-btns { display: flex; flex-direction: column; gap: 10px; }
 
   .btn-primary {
     background: var(--accent);
@@ -502,8 +487,8 @@
     border: none;
     border-radius: var(--radius);
     padding: 15px;
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
     transition: opacity 0.2s;
@@ -518,8 +503,8 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 14px;
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -528,30 +513,13 @@
 
   .btn-secondary:hover { border-color: var(--text-muted); color: var(--text); }
 
-  .grade-badge {
-    display: inline-block;
-    font-family: 'Syne', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 100px;
-    margin-bottom: 20px;
-  }
-
-  .grade-s { background: rgba(79,255,176,0.15); color: var(--correct); border: 1px solid var(--correct); }
-  .grade-a { background: rgba(79,255,176,0.1); color: #a0f0c0; border: 1px solid rgba(79,255,176,0.4); }
-  .grade-b { background: rgba(255,209,102,0.1); color: var(--accent3); border: 1px solid rgba(255,209,102,0.4); }
-  .grade-c { background: rgba(255,107,107,0.1); color: var(--wrong); border: 1px solid rgba(255,107,107,0.4); }
-
-  /* scrollbar */
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-  /* Responsive tweaks */
   @media (max-width: 400px) {
     .question-text { font-size: 16px; }
-    .option-btn { font-size: 14px; padding: 14px 16px; }
+    .option-btn { font-size: 15px; padding: 13px 15px; }
   }
 </style>
 </head>
@@ -561,9 +529,10 @@
 <!-- HOME -->
 <div id="home">
   <div class="home-header">
-    <div class="home-badge">CS 229 · Stanford</div>
-    <h1 class="home-title">Fundamentals of<span>Machine Learning</span></h1>
-    <p class="home-sub">เลือกหัวข้อเพื่อเริ่มทำแบบทดสอบ</p>
+    <div class="home-badge">Machine Learning · Fundamentals</div>
+    <h1 class="home-title">แบบทดสอบ<span>พื้นฐาน Machine Learning</span></h1>
+    <p class="home-sub">เลือกหัวข้อที่ต้องการทดสอบความเข้าใจ</p>
+    <div class="total-badge">รวมทั้งหมด <strong id="totalQ">0</strong> ข้อ ใน 9 หัวข้อ</div>
   </div>
   <div class="topic-grid" id="topicGrid"></div>
 </div>
@@ -572,7 +541,7 @@
 <div id="quiz">
   <div class="quiz-header">
     <div class="quiz-header-top">
-      <button class="back-btn" onclick="goHome()">← Back</button>
+      <button class="back-btn" onclick="goHome()">← กลับ</button>
       <div class="quiz-topic-label" id="quizTopicLabel"></div>
     </div>
     <div class="progress-row">
@@ -590,7 +559,7 @@
   <div class="result-wrap">
     <div class="result-score-ring">
       <div class="result-pct" id="resultPct"></div>
-      <div class="result-label">score</div>
+      <div class="result-label">คะแนน</div>
     </div>
     <div class="grade-badge" id="gradeBadge"></div>
     <h2 class="result-title" id="resultTitle"></h2>
@@ -600,7 +569,7 @@
       <div class="stat-chip w" id="wrongChip"></div>
     </div>
     <div class="result-btns">
-      <button class="btn-primary" id="retryBtn">ทำซ้ำ</button>
+      <button class="btn-primary" id="retryBtn">ทำซ้ำอีกครั้ง</button>
       <button class="btn-secondary" onclick="goHome()">← กลับหน้าหลัก</button>
     </div>
   </div>
@@ -612,128 +581,117 @@
 const TOPICS = [
   {
     id: 0,
-    name: "Introduction to Machine Learning",
+    name: "บทนำสู่ Machine Learning",
     questions: [
       {
-        q: "Machine Learning is best defined as:",
+        q: "Machine Learning คืออะไร?",
         opts: [
-          "Explicitly programming a computer to perform tasks",
-          "A field where systems learn and improve from experience without being explicitly programmed",
-          "Using statistics to describe data",
-          "Building rule-based expert systems"
+          "การเขียนโปรแกรมให้คอมพิวเตอร์ทำงานทีละขั้นตอนอย่างชัดเจน",
+          "ศาสตร์ที่ทำให้ระบบเรียนรู้และพัฒนาตัวเองจากประสบการณ์โดยไม่ต้องโปรแกรมโดยตรง",
+          "การใช้สถิติเพื่ออธิบายข้อมูลเท่านั้น",
+          "การสร้างระบบผู้เชี่ยวชาญโดยอิงกฎที่กำหนดไว้ล่วงหน้า"
         ],
         ans: 1,
-        exp: "ML enables systems to automatically learn and improve from experience (Arthur Samuel, 1959). Unlike traditional programming, ML discovers patterns from data rather than following hand-coded rules."
+        exp: "Machine Learning (ML) ช่วยให้ระบบสามารถเรียนรู้และปรับปรุงตัวเองจากประสบการณ์ได้โดยอัตโนมัติ (Arthur Samuel, 1959) ต่างจากการโปรแกรมแบบดั้งเดิมที่ต้องเขียนกฎทุกอย่างด้วยมือ ML ค้นพบรูปแบบจากข้อมูล"
       },
       {
-        q: "Which of the following is NOT a major category of machine learning?",
+        q: "ประเภทหลักของ Machine Learning มีอะไรบ้าง?",
         opts: [
-          "Supervised Learning",
-          "Unsupervised Learning",
-          "Deterministic Learning",
-          "Reinforcement Learning"
+          "Supervised, Unsupervised, Deterministic Learning",
+          "Supervised, Unsupervised, Reinforcement Learning",
+          "Classification, Regression, Clustering",
+          "Parametric, Non-Parametric, Deep Learning"
+        ],
+        ans: 1,
+        exp: "ML แบ่งเป็น 3 ประเภทหลัก: (1) Supervised Learning — เรียนรู้จากข้อมูลที่มี label (2) Unsupervised Learning — หารูปแบบจากข้อมูลไม่มี label (3) Reinforcement Learning — เรียนรู้จากรางวัลและบทลงโทษจากสิ่งแวดล้อม"
+      },
+      {
+        q: "ใน Supervised Learning ข้อมูล Training ประกอบด้วยอะไร?",
+        opts: [
+          "เฉพาะ input features ไม่มี label",
+          "คู่ของ input features และ output label ที่รู้ค่าแล้ว",
+          "รางวัลและบทลงโทษจากสิ่งแวดล้อม",
+          "กลุ่มข้อมูลที่มีความคล้ายกัน"
+        ],
+        ans: 1,
+        exp: "Supervised Learning ใช้ข้อมูล labeled: คู่ (x⁽ⁱ⁾, y⁽ⁱ⁾) โดย x คือ input และ y คือ output ที่รู้ค่า (label) แล้ว โมเดลจะเรียนรู้การ mapping จาก input ไปยัง output"
+      },
+      {
+        q: "Overfitting คืออะไร?",
+        opts: [
+          "โมเดลเรียบง่ายเกินไปจนจับรูปแบบไม่ได้",
+          "โมเดล fit กับข้อมูล training ดีมากเกินไปจนไม่สามารถ generalize ได้",
+          "ข้อมูล training มีขนาดใหญ่เกินไป",
+          "Learning rate ต่ำเกินไป"
+        ],
+        ans: 1,
+        exp: "Overfitting: โมเดล 'จำ' ข้อมูล training (training error ต่ำ) แต่จับ noise แทนที่จะจับ signal จริง ทำให้ test error สูง มีลักษณะ high variance — โมเดลซับซ้อนเกินไปสำหรับข้อมูล"
+      },
+      {
+        q: "Underfitting มีลักษณะอย่างไร?",
+        opts: [
+          "Training accuracy สูง แต่ Test accuracy ต่ำ",
+          "High Bias — โมเดลเรียบง่ายเกินไปจนจับ signal ไม่ได้",
+          "Variance สูงในการทำนาย",
+          "มี parameter มากเกินไป"
+        ],
+        ans: 1,
+        exp: "Underfitting = high bias โมเดลง่ายเกินไป (เช่น fit เส้นตรงกับข้อมูลที่โค้ง) ทั้ง training error และ test error สูง เพราะจับ pattern พื้นฐานไม่ได้"
+      },
+      {
+        q: "Bias-Variance Tradeoff กล่าวว่าอย่างไร?",
+        opts: [
+          "เพิ่มความซับซ้อนของโมเดลเสมอทำให้ดีขึ้น",
+          "การลด Bias จะลด Variance เสมอ",
+          "เมื่อความซับซ้อนของโมเดลเพิ่มขึ้น Bias ลดลงแต่ Variance เพิ่มขึ้น",
+          "Bias และ Variance ไม่เกี่ยวกับความซับซ้อนของโมเดล"
         ],
         ans: 2,
-        exp: "The three major paradigms are Supervised, Unsupervised, and Reinforcement Learning. 'Deterministic Learning' is not a recognized category."
+        exp: "Total Error = Bias² + Variance + Irreducible Noise โมเดลซับซ้อน (parameter มาก) = bias ต่ำ แต่ variance สูง โมเดลง่าย = bias สูง แต่ variance ต่ำ ต้องหา 'จุดสมดุล' ที่ total error ต่ำสุด"
       },
       {
-        q: "In supervised learning, the training data consists of:",
+        q: "K-fold Cross-Validation ทำงานอย่างไร?",
         opts: [
-          "Only input features with no labels",
-          "Pairs of input features and corresponding output labels",
-          "Rewards and penalties from an environment",
-          "Clusters of similar data points"
+          "Train โมเดล k ครั้งด้วย random seed ต่างกัน",
+          "แบ่งข้อมูลเป็น k ส่วน train บน k-1 ส่วน validate บน 1 ส่วน วนทำ k รอบ แล้วเฉลี่ยผล",
+          "ใช้โมเดล k แบบที่ต่างกัน",
+          "แบ่งข้อมูลเป็น k ชุด training ที่เท่ากัน"
         ],
         ans: 1,
-        exp: "Supervised learning uses labeled training data: (x⁽ⁱ⁾, y⁽ⁱ⁾) pairs, where x is the input and y is the known output (label). The model learns a mapping from inputs to outputs."
+        exp: "K-fold CV: แบ่งข้อมูลเป็น k ส่วนเท่าๆ กัน ในแต่ละรอบ train บน k-1 ส่วน แล้ว validate บน 1 ส่วนที่เหลือ วนทำ k รอบ เฉลี่ยคะแนน k ค่า ให้การประเมิน generalization performance ที่น่าเชื่อถือ"
       },
       {
-        q: "The difference between a training error and a generalization (test) error is that:",
-        opts: [
-          "Training error is always higher than test error",
-          "Test error measures performance on unseen data; training error measures performance on data the model trained on",
-          "They measure different metrics",
-          "Training error is computed after deployment"
-        ],
-        ans: 1,
-        exp: "Training error (empirical risk) measures how well the model fits the training set. Generalization error measures how well it performs on new, unseen data — which is what we actually care about."
-      },
-      {
-        q: "Overfitting occurs when:",
-        opts: [
-          "The model is too simple to capture underlying patterns",
-          "The model fits the training data too well and fails to generalize",
-          "The training set is too large",
-          "The learning rate is too small"
-        ],
-        ans: 1,
-        exp: "Overfitting: the model memorizes training data (low training error) but captures noise rather than the true signal, leading to high test error. It has high variance."
-      },
-      {
-        q: "Underfitting is characterized by:",
-        opts: [
-          "High training accuracy and low test accuracy",
-          "High bias — the model is too simple to capture the signal",
-          "High variance in predictions",
-          "Too many parameters"
-        ],
-        ans: 1,
-        exp: "Underfitting = high bias. The model is too simple (e.g., fitting a line to quadratic data). Both training and test errors are high because it fails to capture the underlying pattern."
-      },
-      {
-        q: "The bias-variance tradeoff states that:",
-        opts: [
-          "Increasing model complexity always improves performance",
-          "Reducing bias always reduces variance",
-          "As model complexity increases, bias decreases but variance increases",
-          "Bias and variance are independent of model complexity"
-        ],
-        ans: 2,
-        exp: "Total error = Bias² + Variance + Irreducible Noise. Complex models (more parameters) have low bias but high variance. Simple models have high bias but low variance. Optimal complexity minimizes total error."
-      },
-      {
-        q: "K-fold cross-validation works by:",
-        opts: [
-          "Training the model k times with different random seeds",
-          "Partitioning data into k folds, training on k-1 folds and validating on the remaining fold, rotating k times",
-          "Using k different model architectures",
-          "Splitting data into k equal training sets"
-        ],
-        ans: 1,
-        exp: "K-fold CV: split data into k equal parts. In each of k rounds, train on (k-1) folds and evaluate on 1 fold. Average the k validation scores. This gives a robust estimate of generalization performance."
-      },
-      {
-        q: "Which metric is most appropriate for evaluating a binary classifier on a severely imbalanced dataset (e.g., 1% positive class)?",
+        q: "เมื่อ dataset มีความไม่สมดุลของ class อย่างรุนแรง (เช่น 1% positive) ควรใช้ metric ใด?",
         opts: [
           "Accuracy",
-          "F1-score or AUC-ROC",
+          "F1-score หรือ AUC-ROC",
           "Mean Squared Error",
           "R² score"
         ],
         ans: 1,
-        exp: "With class imbalance, accuracy is misleading (predicting all negatives gives 99% accuracy). F1-score balances precision and recall; AUC-ROC measures separability across thresholds."
+        exp: "เมื่อ class ไม่สมดุล Accuracy ทำให้เข้าใจผิดได้ (ทำนายทุกอย่างเป็น negative ก็ได้ 99%) F1-score สมดุลระหว่าง Precision และ Recall ส่วน AUC-ROC วัดความสามารถในการแยก class ในทุก threshold"
       },
       {
-        q: "In the context of ML, a 'feature' refers to:",
+        q: "Regularization ใช้เพื่ออะไร?",
         opts: [
-          "The output label y",
-          "An individual measurable property or characteristic of a data point",
-          "The model's weights",
-          "A training example"
-        ],
-        ans: 1,
-        exp: "Features (also called input variables or predictors) are the measurable properties used as inputs to the model. In a housing price prediction task, features might include square footage, number of rooms, location, etc."
-      },
-      {
-        q: "Regularization is used to:",
-        opts: [
-          "Speed up training",
-          "Increase model complexity",
-          "Prevent overfitting by penalizing model complexity",
-          "Normalize the input features"
+          "เร่งความเร็วในการ train",
+          "เพิ่มความซับซ้อนของโมเดล",
+          "ป้องกัน Overfitting โดยลงโทษความซับซ้อนของโมเดล",
+          "Normalize input features"
         ],
         ans: 2,
-        exp: "Regularization adds a penalty term to the loss function (e.g., L1 or L2 norm of weights). This discourages the model from assigning large weights, reducing overfitting and improving generalization."
+        exp: "Regularization เพิ่ม penalty term ใน loss function (เช่น L1 หรือ L2 norm ของ weights) ทำให้โมเดลไม่กำหนด weights ใหญ่มาก ลด Overfitting และปรับปรุง Generalization"
+      },
+      {
+        q: "ความแตกต่างระหว่าง Training Error และ Generalization Error คืออะไร?",
+        opts: [
+          "Training Error สูงกว่า Test Error เสมอ",
+          "Test Error วัดประสิทธิภาพบนข้อมูลใหม่ที่ไม่เคยเห็น Training Error วัดบนข้อมูลที่ใช้ train",
+          "ทั้งสองวัด metric ต่างกัน",
+          "Training Error คำนวณหลังจาก deploy"
+        ],
+        ans: 1,
+        exp: "Training Error (Empirical Risk) วัดว่าโมเดล fit กับ training set ได้ดีแค่ไหน Generalization Error วัดว่าโมเดลทำงานได้ดีแค่ไหนบนข้อมูลใหม่ที่ไม่เคยเห็นมาก่อน — ซึ่งคือสิ่งที่เราสนใจจริงๆ"
       }
     ]
   },
@@ -742,29 +700,29 @@ const TOPICS = [
     name: "Supervised Learning — Generative Models",
     questions: [
       {
-        q: "A generative model learns:",
+        q: "Generative Model เรียนรู้อะไร?",
         opts: [
-          "The decision boundary P(y|x) directly",
-          "The joint distribution P(x, y) or the class-conditional P(x|y)",
-          "A discriminant function without probabilistic interpretation",
-          "Only the marginal distribution P(x)"
+          "Decision boundary P(y|x) โดยตรง",
+          "Joint distribution P(x, y) หรือ class-conditional P(x|y)",
+          "Discriminant function โดยไม่ต้องตีความเชิงความน่าจะเป็น",
+          "เฉพาะ marginal distribution P(x)"
         ],
         ans: 1,
-        exp: "Generative models model how the data was generated: P(x, y) = P(x|y) · P(y). They can generate new samples. Examples: Naive Bayes, GDA. Discriminative models learn P(y|x) directly."
+        exp: "Generative model สร้างแบบจำลองว่าข้อมูลถูกสร้างมาอย่างไร: P(x, y) = P(x|y) · P(y) สามารถสร้างข้อมูลตัวอย่างใหม่ได้ ตัวอย่าง: Naive Bayes, GDA ส่วน Discriminative model เรียนรู้ P(y|x) โดยตรง"
       },
       {
-        q: "The Naive Bayes classifier assumes:",
+        q: "Naive Bayes สมมติว่าอะไร?",
         opts: [
-          "Features are correlated given the class label",
-          "Features are conditionally independent given the class label",
-          "The decision boundary is linear",
-          "Data follows a Gaussian distribution"
+          "Features มีความสัมพันธ์กันเมื่อกำหนด class label",
+          "Features มีความเป็นอิสระแบบ conditional กันเมื่อกำหนด class label",
+          "Decision boundary เป็นเส้นตรง",
+          "ข้อมูลมีการแจกแจงแบบ Gaussian"
         ],
         ans: 1,
-        exp: "Naive Bayes 'naive' assumption: P(x₁, x₂, ..., xₙ | y) = ∏ P(xᵢ | y). Features are conditionally independent given the class. Despite being often violated in practice, it works remarkably well."
+        exp: "สมมติฐาน 'Naive' ของ Naive Bayes: P(x₁, x₂, ..., xₙ | y) = ∏ P(xᵢ | y) — features เป็นอิสระแบบ conditional กันเมื่อรู้ class แม้ในความเป็นจริงมักถูกละเมิด แต่ก็ยังทำงานได้ดีมาก"
       },
       {
-        q: "Using Bayes' theorem, a generative classifier computes:",
+        q: "โดยใช้ Bayes' Theorem ตัวแยกประเภทแบบ Generative คำนวณอะไร?",
         opts: [
           "P(y|x) ∝ P(x|y) · P(y)",
           "P(y|x) = P(y) / P(x)",
@@ -772,32 +730,32 @@ const TOPICS = [
           "P(y|x) = P(x) · P(y)"
         ],
         ans: 0,
-        exp: "Bayes' theorem: P(y|x) = P(x|y)·P(y) / P(x). Since P(x) is constant across classes, we classify by argmax_y P(x|y)·P(y). P(y) is the class prior; P(x|y) is the likelihood."
+        exp: "Bayes' Theorem: P(y|x) = P(x|y)·P(y) / P(x) เนื่องจาก P(x) คงที่ระหว่าง class เราจึงแยกประเภทด้วย argmax_y P(x|y)·P(y) โดย P(y) คือ class prior และ P(x|y) คือ likelihood"
       },
       {
-        q: "Gaussian Discriminant Analysis (GDA) models P(x|y) as:",
+        q: "Gaussian Discriminant Analysis (GDA) สร้างแบบจำลอง P(x|y) อย่างไร?",
         opts: [
-          "A uniform distribution",
-          "A multinomial distribution",
-          "A multivariate Gaussian distribution",
-          "A Bernoulli distribution"
+          "Uniform distribution",
+          "Multinomial distribution",
+          "Multivariate Gaussian distribution",
+          "Bernoulli distribution"
         ],
         ans: 2,
-        exp: "GDA assumes P(x|y=0) ~ N(μ₀, Σ) and P(x|y=1) ~ N(μ₁, Σ). The features given the class are multivariate Gaussian with class-specific means but a shared covariance matrix."
+        exp: "GDA สมมติว่า P(x|y=0) ~ N(μ₀, Σ) และ P(x|y=1) ~ N(μ₁, Σ) — features เมื่อกำหนด class เป็น Multivariate Gaussian ที่มี mean เฉพาะของแต่ละ class แต่ใช้ covariance matrix ร่วมกัน"
       },
       {
-        q: "In GDA, if both classes share the same covariance matrix Σ, the resulting decision boundary is:",
+        q: "ใน GDA ถ้าทั้งสอง class ใช้ covariance matrix Σ ร่วมกัน decision boundary จะเป็นอะไร?",
         opts: [
-          "Quadratic",
-          "Linear",
+          "Quadratic (เส้นโค้ง)",
+          "Linear (เส้นตรง)",
           "Non-parametric",
-          "Circular"
+          "วงกลม"
         ],
         ans: 1,
-        exp: "Shared covariance → linear decision boundary. If covariance matrices differ per class (QDA), the boundary is quadratic. The linear boundary arises because the quadratic terms cancel when Σ₀ = Σ₁."
+        exp: "Covariance ร่วมกัน → decision boundary เป็นเส้นตรง (LDA) ถ้า covariance ต่างกันต่อ class (QDA) boundary จะเป็น quadratic สาเหตุที่เป็นเส้นตรงคือ quadratic terms หักล้างกันเมื่อ Σ₀ = Σ₁"
       },
       {
-        q: "For text classification using Naive Bayes, which distribution models P(word | class)?",
+        q: "สำหรับการจัดประเภทข้อความโดยใช้ Naive Bayes การแจกแจงใดสร้างแบบจำลอง P(คำ | class)?",
         opts: [
           "Gaussian",
           "Multinomial",
@@ -805,51 +763,40 @@ const TOPICS = [
           "Beta"
         ],
         ans: 1,
-        exp: "Multinomial Naive Bayes models word counts: P(x₁,...,xₙ|y) is a multinomial distribution over words. Bernoulli NB treats each word as binary (present/absent). Multinomial is standard for document classification."
+        exp: "Multinomial Naive Bayes สร้างแบบจำลองจำนวนครั้งที่พบคำ P(x₁,...,xₙ|y) เป็น multinomial distribution ส่วน Bernoulli NB ถือว่าแต่ละคำเป็น binary (มี/ไม่มี) Multinomial เป็นมาตรฐานสำหรับการจัดประเภทเอกสาร"
       },
       {
-        q: "The MLE estimate for the Naive Bayes class prior P(y=1) is:",
+        q: "Laplace Smoothing ใน Naive Bayes ใช้เพื่ออะไร?",
         opts: [
-          "Number of features / total samples",
-          "Number of positive examples / total examples",
-          "1 / number of classes",
-          "Number of unique words / total words"
-        ],
-        ans: 1,
-        exp: "MLE for class prior: φ_y = (# examples with y=1) / m. This is simply the empirical frequency of the positive class in the training data."
-      },
-      {
-        q: "Laplace smoothing in Naive Bayes is used to:",
-        opts: [
-          "Handle continuous features",
-          "Speed up training",
-          "Prevent zero probabilities when a word/feature never appears in a class",
-          "Balance class imbalance"
+          "จัดการกับ continuous features",
+          "เร่งการ training",
+          "ป้องกัน probability เป็นศูนย์เมื่อคำ/feature ไม่เคยปรากฏใน class ใด",
+          "แก้ปัญหา class imbalance"
         ],
         ans: 2,
-        exp: "Without smoothing, if a word never appears in class y during training, P(word|y) = 0 and the entire product becomes 0. Laplace smoothing adds a pseudocount of 1: P(xⱼ=v|y) = (count + 1) / (total + k), where k is the vocabulary size."
+        exp: "หากไม่มี smoothing ถ้าคำใดไม่เคยปรากฏใน class y ระหว่าง training P(คำ|y) = 0 ทำให้ product ทั้งหมดกลายเป็น 0 Laplace smoothing เพิ่ม pseudocount 1: P(xⱼ=v|y) = (จำนวน + 1) / (ทั้งหมด + k)"
       },
       {
-        q: "Compared to logistic regression, Naive Bayes:",
+        q: "เปรียบเทียบกับ Logistic Regression ข้อดีของ Generative Model คืออะไร?",
         opts: [
-          "Always outperforms logistic regression",
-          "Has higher asymptotic error but may converge faster with less data",
-          "Is a discriminative model",
-          "Cannot handle binary features"
+          "มี classification error ต่ำกว่าเสมอ",
+          "สามารถจัดการ missing features และสร้างข้อมูลใหม่ได้",
+          "ต้องการข้อมูลน้อยกว่าเสมอ",
+          "ให้ decision boundary ที่ง่ายกว่าเสมอ"
         ],
         ans: 1,
-        exp: "Naive Bayes is generative: its asymptotic error is generally higher than logistic regression (which is discriminative). However, NB can converge faster with small training sets since it has fewer things to learn."
+        exp: "Generative model สร้างแบบจำลอง P(x,y) ครบถ้วน จึงสามารถ: จัดการ missing features (โดย marginalize), ตรวจจับ outliers (P(x) ต่ำ), สร้างตัวอย่างใหม่ และทำงานกับข้อมูลที่ไม่มี label ได้"
       },
       {
-        q: "The key advantage of generative models over discriminative models is:",
+        q: "MLE estimate ของ class prior P(y=1) ใน Naive Bayes คือ:",
         opts: [
-          "They always have lower classification error",
-          "They can handle missing features and generate new data samples",
-          "They require less data",
-          "They produce simpler decision boundaries"
+          "จำนวน features / ตัวอย่างทั้งหมด",
+          "จำนวนตัวอย่างที่ y=1 / จำนวนตัวอย่างทั้งหมด",
+          "1 / จำนวน class",
+          "จำนวนคำที่ไม่ซ้ำ / จำนวนคำทั้งหมด"
         ],
         ans: 1,
-        exp: "Generative models model the full joint P(x,y), which lets them: handle missing features (marginalize over them), detect outliers (low P(x)), generate new samples, and work naturally with unlabeled data."
+        exp: "MLE สำหรับ class prior: φ_y = (จำนวนตัวอย่างที่ y=1) / m นี่คือความถี่เชิงประจักษ์ของ positive class ใน training data ง่ายๆ คือ สัดส่วนตัวอย่าง positive ใน training set"
       }
     ]
   },
@@ -858,18 +805,18 @@ const TOPICS = [
     name: "Supervised Learning — Discriminative Models",
     questions: [
       {
-        q: "Logistic regression models:",
+        q: "Logistic Regression สร้างแบบจำลองอะไร?",
         opts: [
-          "P(x|y) directly",
-          "P(y|x) using the sigmoid function",
-          "The joint distribution P(x,y)",
-          "The mean of y given x"
+          "P(x|y) โดยตรง",
+          "P(y|x) โดยใช้ sigmoid function",
+          "Joint distribution P(x,y)",
+          "ค่าเฉลี่ยของ y เมื่อกำหนด x"
         ],
         ans: 1,
-        exp: "Logistic regression is a discriminative model. It models P(y=1|x; θ) = σ(θᵀx) = 1/(1+e^(-θᵀx)), directly estimating the posterior without modeling how x was generated."
+        exp: "Logistic Regression เป็น discriminative model สร้างแบบจำลอง P(y=1|x; θ) = σ(θᵀx) = 1/(1+e^(-θᵀx)) โดยประมาณค่า posterior โดยตรงโดยไม่ต้องสร้างแบบจำลองว่า x ถูกสร้างมาอย่างไร"
       },
       {
-        q: "The sigmoid function σ(z) outputs values in the range:",
+        q: "Sigmoid function σ(z) ให้ค่าในช่วงใด?",
         opts: [
           "(-∞, +∞)",
           "(0, 1)",
@@ -877,32 +824,21 @@ const TOPICS = [
           "(0, ∞)"
         ],
         ans: 1,
-        exp: "σ(z) = 1/(1+e^(-z)) ∈ (0, 1) for all z ∈ ℝ. This makes it suitable for modeling probabilities. σ(0) = 0.5, σ(z) → 1 as z → ∞, σ(z) → 0 as z → -∞."
+        exp: "σ(z) = 1/(1+e^(-z)) ∈ (0, 1) สำหรับทุก z ∈ ℝ จึงเหมาะสำหรับการสร้างแบบจำลองความน่าจะเป็น โดย σ(0) = 0.5, σ(z) → 1 เมื่อ z → ∞ และ σ(z) → 0 เมื่อ z → -∞"
       },
       {
-        q: "Logistic regression is trained by maximizing:",
+        q: "Logistic Regression ถูก train โดยการ maximize อะไร?",
         opts: [
-          "Mean squared error",
-          "The log-likelihood of the training labels",
-          "The margin between classes",
-          "The joint probability P(x, y)"
+          "Mean Squared Error",
+          "Log-likelihood ของ training labels",
+          "Margin ระหว่าง class",
+          "Joint probability P(x, y)"
         ],
         ans: 1,
-        exp: "Logistic regression uses Maximum Likelihood Estimation (MLE). The log-likelihood ℓ(θ) = Σ [y⁽ⁱ⁾ log h(x⁽ⁱ⁾) + (1-y⁽ⁱ⁾) log(1-h(x⁽ⁱ⁾))]. We maximize this (equivalently, minimize negative log-likelihood = cross-entropy loss)."
+        exp: "Logistic Regression ใช้ Maximum Likelihood Estimation (MLE) โดย log-likelihood ℓ(θ) = Σ [y⁽ⁱ⁾ log h(x⁽ⁱ⁾) + (1-y⁽ⁱ⁾) log(1-h(x⁽ⁱ⁾))] ซึ่งเทียบเท่ากับการ minimize cross-entropy loss"
       },
       {
-        q: "The gradient update rule for logistic regression using stochastic gradient ascent on the log-likelihood is:",
-        opts: [
-          "θⱼ := θⱼ + α (y⁽ⁱ⁾ - hθ(x⁽ⁱ⁾)) xⱼ⁽ⁱ⁾",
-          "θⱼ := θⱼ - α (y⁽ⁱ⁾ - hθ(x⁽ⁱ⁾)) xⱼ⁽ⁱ⁾",
-          "θⱼ := θⱼ + α hθ(x⁽ⁱ⁾) xⱼ⁽ⁱ⁾",
-          "θⱼ := θⱼ / α (y⁽ⁱ⁾ - hθ(x⁽ⁱ⁾))"
-        ],
-        ans: 0,
-        exp: "The gradient of log P(y|x; θ) w.r.t. θⱼ = (y - hθ(x)) xⱼ. Gradient ascent (maximizing likelihood): θⱼ += α·(y - hθ(x))·xⱼ. Notice this has the same form as linear regression's gradient — an elegant property of the exponential family."
-      },
-      {
-        q: "The decision boundary of logistic regression is defined by:",
+        q: "Decision boundary ของ Logistic Regression กำหนดด้วยอะไร?",
         opts: [
           "σ(θᵀx) = 0",
           "θᵀx = 0",
@@ -910,21 +846,21 @@ const TOPICS = [
           "σ(θᵀx) = 0.1"
         ],
         ans: 1,
-        exp: "The decision boundary is where P(y=1|x) = 0.5, which means σ(θᵀx) = 0.5, which means θᵀx = 0. The boundary is a hyperplane {x : θᵀx = 0} — logistic regression produces a linear decision boundary."
+        exp: "Decision boundary อยู่ที่ P(y=1|x) = 0.5 คือเมื่อ σ(θᵀx) = 0.5 นั่นคือ θᵀx = 0 boundary คือ hyperplane {x : θᵀx = 0} — Logistic Regression สร้าง linear decision boundary"
       },
       {
-        q: "Perceptron's update rule fires ONLY when:",
+        q: "Perceptron อัปเดต weights เมื่อใด?",
         opts: [
-          "A training example is classified correctly",
-          "A training example is misclassified",
-          "Every training example, regardless of classification",
-          "The weight magnitude exceeds a threshold"
+          "เมื่อ classify training example ได้ถูกต้อง",
+          "เมื่อ classify training example ผิด",
+          "ทุกครั้งไม่ว่าจะ classify ถูกหรือผิด",
+          "เมื่อขนาด weight เกิน threshold"
         ],
         ans: 1,
-        exp: "Perceptron update: if hθ(x⁽ⁱ⁾) ≠ y⁽ⁱ⁾ (misclassified), then θ := θ + α(y⁽ⁱ⁾ - hθ(x⁽ⁱ⁾))x⁽ⁱ⁾. No update on correct predictions. If data is linearly separable, the perceptron converges in finite steps (Perceptron Convergence Theorem)."
+        exp: "Perceptron update: ถ้า hθ(x⁽ⁱ⁾) ≠ y⁽ⁱ⁾ (classify ผิด) จึง θ := θ + α(y⁽ⁱ⁾ - hθ(x⁽ⁱ⁾))x⁽ⁱ⁾ ถ้า classify ถูกไม่อัปเดต ถ้าข้อมูล linearly separable จะ converge ใน finite steps (Perceptron Convergence Theorem)"
       },
       {
-        q: "In linear regression, the ordinary least squares (OLS) solution is:",
+        q: "Ordinary Least Squares (OLS) solution ของ Linear Regression คือ:",
         opts: [
           "θ = (XᵀX)⁻¹ Xᵀy",
           "θ = Xᵀ(XXᵀ)⁻¹y",
@@ -932,40 +868,40 @@ const TOPICS = [
           "θ = XᵀX y"
         ],
         ans: 0,
-        exp: "The normal equation gives the closed-form OLS solution: θ = (XᵀX)⁻¹ Xᵀy. This minimizes the sum of squared residuals J(θ) = ||Xθ - y||². For large datasets, gradient descent is preferred over computing the matrix inverse."
+        exp: "Normal Equation ให้ closed-form OLS solution: θ = (XᵀX)⁻¹ Xᵀy ซึ่ง minimize sum of squared residuals J(θ) = ||Xθ - y||² สำหรับ dataset ขนาดใหญ่ gradient descent เหมาะกว่าเพราะหลีกเลี่ยงการคำนวณ matrix inverse"
       },
       {
-        q: "Which of these is a key difference between linear and logistic regression?",
+        q: "ความแตกต่างหลักระหว่าง Linear และ Logistic Regression คืออะไร?",
         opts: [
-          "Linear regression uses gradient descent; logistic does not",
-          "Logistic regression predicts probabilities for classification; linear regression predicts continuous values",
-          "Linear regression uses the sigmoid function",
-          "Logistic regression cannot model non-linear relationships"
+          "Linear Regression ใช้ gradient descent แต่ Logistic ไม่ใช้",
+          "Logistic Regression ทำนายความน่าจะเป็นสำหรับ classification ส่วน Linear ทำนายค่าต่อเนื่อง",
+          "Linear Regression ใช้ sigmoid function",
+          "Logistic Regression ไม่สามารถ model ความสัมพันธ์ non-linear ได้"
         ],
         ans: 1,
-        exp: "Linear regression: y ∈ ℝ, models continuous outputs, minimizes MSE. Logistic regression: y ∈ {0,1}, models P(y|x) ∈ (0,1), used for classification, minimizes cross-entropy loss."
+        exp: "Linear Regression: y ∈ ℝ ทำนาย continuous output minimize MSE ส่วน Logistic Regression: y ∈ {0,1} สร้างแบบจำลอง P(y|x) ∈ (0,1) ใช้สำหรับ classification minimize cross-entropy loss"
       },
       {
-        q: "Newton's method for logistic regression converges faster than gradient descent because:",
+        q: "Newton's Method สำหรับ Logistic Regression converge เร็วกว่า Gradient Descent เพราะอะไร?",
         opts: [
-          "It uses a larger step size",
-          "It uses second-order derivative information (Hessian), finding better update directions",
-          "It avoids computing gradients",
-          "It uses batch processing"
+          "ใช้ step size ที่ใหญ่กว่า",
+          "ใช้ข้อมูล derivative อันดับสอง (Hessian) ทำให้หาทิศทาง update ได้ดีกว่า",
+          "ไม่ต้องคำนวณ gradient",
+          "ใช้การประมวลผลแบบ batch"
         ],
         ans: 1,
-        exp: "Newton's update: θ := θ - H⁻¹∇θℓ(θ), where H is the Hessian matrix. Second-order methods adapt the step size per dimension and exploit curvature, typically converging in far fewer iterations than gradient descent."
+        exp: "Newton's update: θ := θ - H⁻¹∇θℓ(θ) โดย H คือ Hessian matrix second-order method ปรับ step size ต่อมิติและใช้ประโยชน์จาก curvature ทำให้ converge ในจำนวน iteration น้อยกว่า gradient descent มาก"
       },
       {
-        q: "The Generalized Linear Model (GLM) framework encompasses logistic and linear regression because both:",
+        q: "Generalized Linear Model (GLM) ครอบคลุม Logistic และ Linear Regression เพราะทั้งคู่:",
         opts: [
-          "Use the same loss function",
-          "Model E[y|x] as g⁻¹(θᵀx) for some link function g, with y from the exponential family",
-          "Produce linear decision boundaries",
-          "Are non-parametric models"
+          "ใช้ loss function เดียวกัน",
+          "สร้างแบบจำลอง E[y|x] = g⁻¹(θᵀx) สำหรับ link function g บางตัว โดย y มาจาก exponential family",
+          "ให้ linear decision boundary",
+          "เป็น non-parametric model"
         ],
         ans: 1,
-        exp: "GLMs unify linear, logistic, and Poisson regression. Three assumptions: (1) y|x follows an exponential family distribution, (2) predict E[T(y)|x], (3) η = θᵀx (linear predictor). Different choices of exponential family member yield different regression types."
+        exp: "GLM รวม linear, logistic และ Poisson regression ไว้ด้วยกัน 3 สมมติฐาน: (1) y|x เป็น exponential family distribution (2) ทำนาย E[T(y)|x] (3) η = θᵀx (linear predictor) การเลือก exponential family ต่างกันให้ regression แบบต่างกัน"
       }
     ]
   },
@@ -974,92 +910,81 @@ const TOPICS = [
     name: "Parametric vs Non-Parametric Learning",
     questions: [
       {
-        q: "A parametric learning algorithm is characterized by:",
+        q: "Parametric Learning Algorithm มีลักษณะอย่างไร?",
         opts: [
-          "A model whose number of parameters grows with the training set size",
-          "A fixed, finite set of parameters that summarizes the data",
-          "Always requiring a kernel function",
-          "Making no assumptions about the data distribution"
+          "จำนวน parameter เพิ่มขึ้นตามขนาด training set",
+          "มี parameter จำนวนจำกัดและคงที่ที่สรุปข้อมูลทั้งหมด",
+          "ต้องใช้ kernel function เสมอ",
+          "ไม่มีสมมติฐานเกี่ยวกับการแจกแจงข้อมูล"
         ],
         ans: 1,
-        exp: "Parametric: fixed number of parameters regardless of training set size. After training, we can discard the data — the parameters (e.g., θ in logistic regression) capture everything we learned. Examples: linear regression, logistic regression, naive Bayes."
+        exp: "Parametric: จำนวน parameter คงที่ไม่ว่า training set จะใหญ่แค่ไหน หลัง train เสร็จสามารถทิ้งข้อมูลได้ — parameter (เช่น θ ใน logistic regression) เก็บทุกอย่างที่เรียนรู้ไว้ ตัวอย่าง: linear regression, logistic regression, naive Bayes"
       },
       {
-        q: "Non-parametric learning algorithms:",
+        q: "Non-Parametric Learning Algorithm มีลักษณะอย่างไร?",
         opts: [
-          "Have no parameters",
-          "Have a fixed number of parameters set at training time",
-          "Keep training data at inference time; their 'complexity' grows with data",
-          "Can only model linear relationships"
+          "ไม่มี parameter เลย",
+          "มี parameter จำนวนคงที่กำหนดตอน train",
+          "เก็บ training data ไว้ใช้ตอน inference ความซับซ้อนขยายตามข้อมูล",
+          "สร้าง model เฉพาะความสัมพันธ์เชิงเส้นตรง"
         ],
         ans: 2,
-        exp: "Non-parametric models: the number of 'parameters' grows with training data. At inference, they use the training data directly. Examples: k-NN, kernel regression, decision trees (with no max depth). They make fewer distributional assumptions."
+        exp: "Non-Parametric: จำนวน 'parameter' เพิ่มตาม training data ตอน inference ใช้ training data โดยตรง ตัวอย่าง: k-NN, kernel regression, decision trees (ไม่จำกัด depth) มีสมมติฐานเกี่ยวกับการแจกแจงน้อยกว่า"
       },
       {
-        q: "k-Nearest Neighbors (k-NN) classifies a new point by:",
+        q: "k-Nearest Neighbors (k-NN) จำแนกจุดใหม่อย่างไร?",
         opts: [
-          "Finding the k nearest training examples and taking a vote among their labels",
-          "Computing the k most probable class labels",
-          "Training a local linear model around the query point",
-          "Finding the k farthest training examples"
+          "หา k ตัวอย่าง training ที่ใกล้ที่สุดแล้วโหวต label",
+          "คำนวณ k class ที่น่าจะเป็นไปได้มากที่สุด",
+          "สร้าง linear model เฉพาะที่รอบจุด query",
+          "หา k ตัวอย่าง training ที่ไกลที่สุด"
         ],
         ans: 0,
-        exp: "k-NN: find the k training points closest to the query (by Euclidean distance or other metric), then predict by majority vote (classification) or average (regression). With k=1, the decision boundary is a Voronoi diagram."
+        exp: "k-NN: หา k training points ที่ใกล้กับ query มากที่สุด (โดย Euclidean distance หรือ metric อื่น) แล้วทำนายด้วย majority vote (classification) หรือค่าเฉลี่ย (regression) เมื่อ k=1 decision boundary คือ Voronoi diagram"
       },
       {
-        q: "As k increases in k-NN, the decision boundary becomes:",
+        q: "เมื่อ k ใน k-NN เพิ่มขึ้น decision boundary จะเป็นอย่างไร?",
         opts: [
-          "More complex and jagged",
-          "Smoother and less complex (higher bias)",
-          "More prone to overfitting",
-          "Identical to a linear classifier"
+          "ซับซ้อนและขรุขระมากขึ้น",
+          "เรียบขึ้นและซับซ้อนน้อยลง (bias สูงขึ้น)",
+          "มีแนวโน้ม overfit มากขึ้น",
+          "เหมือน linear classifier"
         ],
         ans: 1,
-        exp: "Small k = low bias, high variance (wiggly boundary, prone to overfitting). Large k = high bias, low variance (smooth boundary). k=N (all training points) always predicts the majority class. Optimal k is a hyperparameter tuned via cross-validation."
+        exp: "k เล็ก = bias ต่ำ variance สูง (boundary ขรุขระ overfit) k ใหญ่ = bias สูง variance ต่ำ (boundary เรียบ) k=N (ทุกจุด) ทำนาย majority class เสมอ k ที่เหมาะสมปรับด้วย cross-validation"
       },
       {
-        q: "Locally Weighted Linear Regression (LOWESS) makes a prediction at query point x by:",
+        q: "Locally Weighted Linear Regression (LOWESS) ทำนายที่จุด x อย่างไร?",
         opts: [
-          "Using a single global linear model fit to all training data",
-          "Fitting a linear model to ALL training points but weighting nearby points more heavily",
-          "Finding the nearest neighbor and using its y value directly",
-          "Building a decision tree around x"
+          "ใช้ global linear model เดียวที่ fit กับข้อมูลทั้งหมด",
+          "Fit linear model กับข้อมูล training ทั้งหมด แต่ให้น้ำหนักกับจุดใกล้เคียงมากกว่า",
+          "หา nearest neighbor แล้วใช้ค่า y ของมันโดยตรง",
+          "สร้าง decision tree รอบ x"
         ],
         ans: 1,
-        exp: "LOWESS: solve θ = argmin Σᵢ w⁽ⁱ⁾(y⁽ⁱ⁾ - θᵀx⁽ⁱ⁾)², where w⁽ⁱ⁾ = exp(-||x-x⁽ⁱ⁾||² / 2τ²). The bandwidth τ controls the weighting — small τ: only very nearby points matter; large τ: approaches standard linear regression."
+        exp: "LOWESS: แก้ θ = argmin Σᵢ w⁽ⁱ⁾(y⁽ⁱ⁾ - θᵀx⁽ⁱ⁾)² โดย w⁽ⁱ⁾ = exp(-||x-x⁽ⁱ⁾||² / 2τ²) bandwidth τ ควบคุมการให้น้ำหนัก — τ เล็ก: เฉพาะจุดใกล้มากที่มีอิทธิพล τ ใหญ่: เข้าใกล้ standard linear regression"
       },
       {
-        q: "The bandwidth parameter τ in locally weighted regression controls:",
+        q: "ข้อเสียหลักของ Non-Parametric methods เช่น k-NN คืออะไร?",
         opts: [
-          "The number of neighbors used",
-          "How quickly the influence of training points decreases with distance",
-          "The regularization penalty",
-          "The step size in gradient descent"
+          "ไม่สามารถ model non-linear decision boundary ได้",
+          "ต้องเก็บข้อมูล training ทั้งหมด ทำให้การทำนายช้าสำหรับ dataset ขนาดใหญ่",
+          "มี overfit เสมอ",
+          "ข้อมูลต้อง linearly separable"
         ],
         ans: 1,
-        exp: "τ (bandwidth): small τ → steep falloff → only very close points influence the fit (high variance, low bias). Large τ → slow falloff → all points contribute equally (approaches standard OLS, high bias, low variance)."
+        exp: "Non-Parametric model ต้องเก็บ training set ทั้งหมด การทำนายต้องคำนวณ distance กับทุก training point — O(n·d) ต่อการ query หนึ่งครั้ง ทั้ง memory และ inference cost ขยายตาม dataset size"
       },
       {
-        q: "The main disadvantage of non-parametric methods like k-NN is:",
+        q: "เมื่อเทียบกับ Parametric model ใน Bias-Variance Tradeoff Non-Parametric model มีแนวโน้มอย่างไร?",
         opts: [
-          "They cannot model non-linear decision boundaries",
-          "They require storing all training data, making prediction slow for large datasets",
-          "They always overfit",
-          "They require the data to be linearly separable"
+          "Bias สูงกว่า Variance ต่ำกว่า",
+          "Bias ต่ำกว่า Variance สูงกว่า (เมื่อมีข้อมูลเพียงพอ)",
+          "Bias และ Variance เท่ากัน",
+          "ไม่มีทั้ง Bias และ Variance"
         ],
         ans: 1,
-        exp: "Non-parametric models must store the entire training set. Prediction requires computing distances to all training points — O(n·d) per query. Memory and inference cost scale with dataset size, making them impractical for very large n."
-      },
-      {
-        q: "In terms of the bias-variance tradeoff, compared to parametric models, non-parametric models tend to have:",
-        opts: [
-          "Higher bias and lower variance",
-          "Lower bias and higher variance (given sufficient data)",
-          "The same bias and variance",
-          "Neither bias nor variance"
-        ],
-        ans: 1,
-        exp: "Non-parametric models make fewer structural assumptions → lower bias (can fit any function). But they have higher variance — they're more sensitive to the specific training data used. With lots of data, this variance becomes manageable."
+        exp: "Non-Parametric model มีสมมติฐานโครงสร้างน้อยกว่า → bias ต่ำกว่า (สามารถ fit ฟังก์ชันใดก็ได้) แต่มี variance สูงกว่า — sensitive ต่อข้อมูล training ที่ใช้ เมื่อมีข้อมูลมาก variance นี้จัดการได้"
       }
     ]
   },
@@ -1068,125 +993,114 @@ const TOPICS = [
     name: "Neural Networks",
     questions: [
       {
-        q: "The activation function in a neural network is necessary because:",
+        q: "ทำไม Activation Function ใน Neural Network จึงจำเป็น?",
         opts: [
-          "It speeds up computation",
-          "Without it, a multi-layer network collapses to a single linear transformation",
-          "It initializes the weights",
-          "It normalizes the inputs to [0,1]"
+          "เพื่อเร่งความเร็วในการคำนวณ",
+          "หากไม่มี multi-layer network จะยุบเป็น linear transformation เดียว",
+          "เพื่อ initialize weights",
+          "เพื่อ normalize input ให้อยู่ใน [0,1]"
         ],
         ans: 1,
-        exp: "Without non-linear activations, a stack of linear layers Wₙ·(Wₙ₋₁·(...W₁x)) = W'x is just one linear transformation. Non-linear activations (ReLU, sigmoid, tanh) allow networks to learn complex, non-linear functions."
+        exp: "หากไม่มี non-linear activation การซ้อน linear layers Wₙ·(Wₙ₋₁·(...W₁x)) = W'x ก็เป็นแค่ linear transformation เดียว Activation function ที่ non-linear (ReLU, sigmoid, tanh) ช่วยให้ network เรียนรู้ฟังก์ชันซับซ้อนได้"
       },
       {
-        q: "The ReLU activation function is defined as:",
+        q: "ReLU Activation Function นิยามอย่างไร?",
         opts: [
           "f(z) = 1/(1 + e^(-z))",
           "f(z) = max(0, z)",
           "f(z) = tanh(z)",
-          "f(z) = z² if z > 0 else 0"
+          "f(z) = z² เมื่อ z > 0 มิฉะนั้น 0"
         ],
         ans: 1,
-        exp: "ReLU (Rectified Linear Unit): f(z) = max(0, z). It outputs z if positive, 0 otherwise. Advantages over sigmoid/tanh: no vanishing gradient for positive values, computationally cheap, tends to produce sparse activations."
+        exp: "ReLU (Rectified Linear Unit): f(z) = max(0, z) ส่งคืน z ถ้าเป็นบวก ส่งคืน 0 ถ้าไม่เป็น ข้อดีเทียบกับ sigmoid/tanh: ไม่มี vanishing gradient สำหรับค่าบวก คำนวณถูก และมักให้ sparse activations"
       },
       {
-        q: "During forward propagation in a neural network:",
+        q: "ใน Forward Propagation ของ Neural Network เกิดอะไรขึ้น?",
         opts: [
-          "Weights are updated based on the loss",
-          "Gradients are computed layer by layer from output to input",
-          "Input data is transformed layer by layer to produce a prediction",
-          "The learning rate is adjusted"
+          "Weights ถูกอัปเดตตาม loss",
+          "Gradient คำนวณทีละ layer จาก output ไปยัง input",
+          "ข้อมูล input ถูก transform ทีละ layer เพื่อสร้าง prediction",
+          "Learning rate ถูกปรับ"
         ],
         ans: 2,
-        exp: "Forward pass: input x → hidden layer 1 (a⁽¹⁾ = σ(W⁽¹⁾x + b⁽¹⁾)) → ... → output layer → loss. Data flows forward; we compute activations at each layer to get the prediction ŷ."
+        exp: "Forward pass: input x → hidden layer 1 (a⁽¹⁾ = σ(W⁽¹⁾x + b⁽¹⁾)) → ... → output layer → loss ข้อมูลไหลไปข้างหน้า เราคำนวณ activation ที่แต่ละ layer เพื่อได้ prediction ŷ"
       },
       {
-        q: "Backpropagation computes:",
+        q: "Backpropagation คำนวณอะไร?",
         opts: [
-          "The optimal weight values directly",
-          "The gradient of the loss with respect to all weights using the chain rule",
-          "The forward pass activations in reverse",
-          "The eigenvalues of the weight matrices"
+          "ค่า weight ที่เหมาะสมโดยตรง",
+          "Gradient ของ loss เทียบกับทุก weight โดยใช้ chain rule",
+          "Forward pass activations ในลำดับกลับ",
+          "Eigenvalues ของ weight matrices"
         ],
         ans: 1,
-        exp: "Backpropagation = reverse-mode automatic differentiation. Using the chain rule: ∂L/∂W⁽ˡ⁾ = (∂L/∂a⁽ˡ⁾) · (∂a⁽ˡ⁾/∂W⁽ˡ⁾). Gradients flow backward from the loss to each weight, enabling gradient descent."
+        exp: "Backpropagation = reverse-mode automatic differentiation ใช้ chain rule: ∂L/∂W⁽ˡ⁾ = (∂L/∂a⁽ˡ⁾) · (∂a⁽ˡ⁾/∂W⁽ˡ⁾) Gradient ไหลย้อนกลับจาก loss ไปยัง weight แต่ละตัว ทำให้ gradient descent ทำงานได้"
       },
       {
-        q: "The vanishing gradient problem occurs when:",
+        q: "ปัญหา Vanishing Gradient เกิดขึ้นเมื่อใด?",
         opts: [
-          "Gradients become too large, causing unstable training",
-          "Gradients become exponentially small as they propagate back through many layers",
-          "The loss function has no gradient",
-          "The batch size is too small"
+          "Gradient ใหญ่เกินไปทำให้ training ไม่เสถียร",
+          "Gradient มีขนาดเล็กลงแบบ exponential เมื่อ propagate ผ่าน layer จำนวนมาก",
+          "Loss function ไม่มี gradient",
+          "Batch size เล็กเกินไป"
         ],
         ans: 1,
-        exp: "In deep networks with sigmoid/tanh activations, derivatives σ'(z) ≤ 0.25. The chain rule multiplies these small values across layers, making gradients exponentially small. Early layers learn extremely slowly. ReLU, batch norm, and skip connections (ResNet) mitigate this."
+        exp: "ใน deep network ที่ใช้ sigmoid/tanh derivative σ'(z) ≤ 0.25 chain rule คูณค่าเล็กๆ นี้ข้าม layer ทำให้ gradient เล็กลงแบบ exponential Early layers เรียนรู้ช้ามาก ReLU, batch norm และ skip connections (ResNet) ช่วยลดปัญหานี้"
       },
       {
-        q: "Which of the following is the correct description of a neural network's weight matrix W⁽ˡ⁾ dimensions for a layer with nˡ neurons receiving input from nˡ⁻¹ neurons?",
+        q: "Mini-batch Gradient Descent ได้รับความนิยมมากกว่า Full-batch Gradient Descent เพราะอะไร?",
         opts: [
-          "W⁽ˡ⁾ ∈ ℝ^(nˡ⁻¹ × nˡ)",
-          "W⁽ˡ⁾ ∈ ℝ^(nˡ × nˡ⁻¹)",
-          "W⁽ˡ⁾ ∈ ℝ^(nˡ × nˡ)",
-          "W⁽ˡ⁾ ∈ ℝ^(nˡ⁻¹ × nˡ⁻¹)"
-        ],
-        ans: 1,
-        exp: "W⁽ˡ⁾ ∈ ℝ^(nˡ × nˡ⁻¹). The pre-activation is z⁽ˡ⁾ = W⁽ˡ⁾a⁽ˡ⁻¹⁾ + b⁽ˡ⁾ where z⁽ˡ⁾ ∈ ℝ^nˡ, a⁽ˡ⁻¹⁾ ∈ ℝ^nˡ⁻¹. So W must be (nˡ × nˡ⁻¹) to give nˡ outputs."
-      },
-      {
-        q: "Mini-batch gradient descent is preferred over full-batch gradient descent because:",
-        opts: [
-          "It always finds the global minimum",
-          "It computes exact gradients",
-          "It balances computational efficiency with noisy gradient estimates that help escape local minima",
-          "It requires no learning rate"
+          "หา global minimum เสมอ",
+          "คำนวณ exact gradient",
+          "สมดุลระหว่างประสิทธิภาพการคำนวณกับ noisy gradient ที่ช่วยหลุดจาก local minima",
+          "ไม่ต้องการ learning rate"
         ],
         ans: 2,
-        exp: "Mini-batch: compute gradient on a small batch (32–256 examples). Full-batch: exact gradient but expensive. Stochastic (batch=1): fast but very noisy. Mini-batch gives hardware-efficient parallelism + beneficial noise that helps optimization."
+        exp: "Mini-batch: คำนวณ gradient บน batch เล็กๆ (32–256 ตัวอย่าง) Full-batch: exact gradient แต่แพง Stochastic (batch=1): เร็วแต่ noisy มาก Mini-batch ให้ parallelism บน hardware ที่มีประสิทธิภาพ + noise ที่เป็นประโยชน์ต่อ optimization"
       },
       {
-        q: "Dropout regularization works by:",
+        q: "Dropout Regularization ทำงานอย่างไร?",
         opts: [
-          "Setting small weights to zero permanently",
-          "Randomly zeroing out neuron activations during training with probability p",
-          "Reducing the number of layers",
-          "Adding L2 penalty to the loss"
+          "กำหนด weights ขนาดเล็กเป็นศูนย์ถาวร",
+          "สุ่มปิด neuron activation ระหว่าง training ด้วยความน่าจะเป็น p",
+          "ลดจำนวน layers",
+          "เพิ่ม L2 penalty ใน loss"
         ],
         ans: 1,
-        exp: "Dropout: at each training step, each neuron is independently 'dropped' (set to 0) with probability p (typically 0.5). This prevents co-adaptation of neurons and forces the network to learn redundant representations. At test time, all neurons are active but scaled by (1-p)."
+        exp: "Dropout: ในแต่ละ training step แต่ละ neuron ถูก 'drop' (กำหนดเป็น 0) ด้วยความน่าจะเป็น p (ปกติ 0.5) ป้องกัน co-adaptation ของ neurons บังคับให้ network เรียนรู้ representation แบบ redundant ตอน test ทุก neuron ทำงานแต่ scale ด้วย (1-p)"
       },
       {
-        q: "The universal approximation theorem states that:",
+        q: "Universal Approximation Theorem กล่าวว่าอะไร?",
         opts: [
-          "Neural networks can only approximate linear functions",
-          "A neural network with one hidden layer and enough neurons can approximate any continuous function on a compact domain",
-          "Deep networks are always better than shallow networks",
-          "Backpropagation always converges to the global optimum"
+          "Neural network สามารถ approximate ได้เฉพาะ linear function",
+          "Neural network ที่มี hidden layer เดียวและจำนวน neuron เพียงพอสามารถ approximate ฟังก์ชันต่อเนื่องใดก็ได้บน compact domain",
+          "Deep network ดีกว่า shallow network เสมอ",
+          "Backpropagation converge ไปยัง global optimum เสมอ"
         ],
         ans: 1,
-        exp: "Universal Approximation: a feedforward network with one hidden layer of sufficient width (with non-polynomial activation) can approximate any continuous function on a compact set to arbitrary precision. This justifies expressibility, but says nothing about learnability or efficiency."
+        exp: "Universal Approximation: feedforward network ที่มี hidden layer เดียวที่กว้างพอ (ด้วย non-polynomial activation) สามารถ approximate ฟังก์ชันต่อเนื่องใดก็ได้บน compact set ได้ตามความแม่นยำที่ต้องการ นี่พิสูจน์ความสามารถในการแสดงออก แต่ไม่บอกเรื่องการเรียนรู้"
       },
       {
-        q: "What is the purpose of the softmax function in the output layer of a multi-class classifier?",
+        q: "จุดประสงค์ของ Softmax function ใน output layer ของ multi-class classifier คืออะไร?",
         opts: [
-          "To threshold outputs at 0.5",
-          "To convert raw scores (logits) into a probability distribution summing to 1",
-          "To compute the gradient during backpropagation",
-          "To initialize the weights"
+          "กำหนด threshold output ที่ 0.5",
+          "แปลง raw scores (logits) ให้เป็น probability distribution ที่รวมกันได้ 1",
+          "คำนวณ gradient ระหว่าง backpropagation",
+          "Initialize weights"
         ],
         ans: 1,
-        exp: "Softmax: P(y=k|x) = e^(zₖ) / Σⱼ e^(zⱼ). It maps K real-valued logits to a valid probability distribution (non-negative, sums to 1). The class with highest softmax output is the predicted class."
+        exp: "Softmax: P(y=k|x) = e^(zₖ) / Σⱼ e^(zⱼ) แปลง K real-valued logits ให้เป็น probability distribution ที่ valid (ไม่ติดลบและรวมกันได้ 1) class ที่มีค่า softmax สูงสุดคือ class ที่ทำนาย"
       },
       {
-        q: "Batch normalization helps training by:",
+        q: "Batch Normalization ช่วย training อย่างไร?",
         opts: [
-          "Reducing the number of parameters",
-          "Normalizing layer inputs to have zero mean and unit variance, stabilizing and accelerating training",
-          "Randomly dropping connections",
-          "Limiting the maximum weight value"
+          "ลดจำนวน parameter",
+          "Normalize layer inputs ให้มี mean ศูนย์และ variance หนึ่ง ช่วยให้ training เสถียรและเร็วขึ้น",
+          "สุ่มลบ connections",
+          "จำกัดค่า weight สูงสุด"
         ],
         ans: 1,
-        exp: "Batch Norm: for each mini-batch, normalize activations to μ=0, σ=1, then apply learnable scale γ and shift β. Benefits: reduces internal covariate shift, allows higher learning rates, has slight regularization effect, reduces sensitivity to initialization."
+        exp: "Batch Norm: สำหรับแต่ละ mini-batch normalize activations ให้ μ=0, σ=1 แล้วใช้ learnable scale γ และ shift β ประโยชน์: ลด internal covariate shift, ใช้ learning rate สูงขึ้นได้, มีผล regularization เล็กน้อย, ลด sensitivity ต่อ initialization"
       }
     ]
   },
@@ -1195,51 +1109,51 @@ const TOPICS = [
     name: "Support Vector Machines",
     questions: [
       {
-        q: "The goal of an SVM is to find a hyperplane that:",
+        q: "เป้าหมายของ SVM คืออะไร?",
         opts: [
-          "Minimizes the number of training errors",
-          "Maximizes the margin between the two classes",
-          "Passes exactly through all support vectors",
-          "Minimizes the sum of distances from all points"
+          "Minimize จำนวน training error",
+          "Maximize margin ระหว่าง 2 class",
+          "ผ่านทุก support vector พอดี",
+          "Minimize ผลรวมระยะทางจากทุกจุด"
         ],
         ans: 1,
-        exp: "SVM: find the hyperplane wᵀx + b = 0 that maximizes the margin = 2/||w||. The margin is the distance between the nearest points of each class to the hyperplane. Maximum margin = better generalization (VC theory)."
+        exp: "SVM: หา hyperplane wᵀx + b = 0 ที่ maximize margin = 2/||w|| margin คือระยะทางระหว่างจุดที่ใกล้ที่สุดของแต่ละ class กับ hyperplane margin ใหญ่ = generalization ดีขึ้น (ตามทฤษฎี VC)"
       },
       {
-        q: "Support vectors are:",
+        q: "Support Vectors คืออะไร?",
         opts: [
-          "All training data points",
-          "The data points farthest from the decision boundary",
-          "The training points closest to the decision boundary that define the margin",
-          "Vectors used to compute the kernel"
+          "Training data points ทั้งหมด",
+          "Data points ที่อยู่ไกล decision boundary มากที่สุด",
+          "Training points ที่ใกล้ decision boundary มากที่สุดที่กำหนด margin",
+          "Vectors ที่ใช้คำนวณ kernel"
         ],
         ans: 2,
-        exp: "Support vectors: the training points that lie exactly on the margin boundaries (wᵀx + b = ±1). The hyperplane is entirely determined by these points — removing other training points doesn't change the solution."
+        exp: "Support Vectors: training points ที่อยู่บน margin boundary พอดี (wᵀx + b = ±1) hyperplane ถูกกำหนดโดยจุดเหล่านี้ทั้งหมด — การลบ training points อื่นออกไม่เปลี่ยน solution"
       },
       {
-        q: "The SVM primal optimization problem (hard-margin) is:",
+        q: "SVM Primal Optimization Problem (hard-margin) คือ:",
         opts: [
           "Maximize ||w||² subject to y⁽ⁱ⁾(wᵀx⁽ⁱ⁾ + b) ≥ 1",
           "Minimize ½||w||² subject to y⁽ⁱ⁾(wᵀx⁽ⁱ⁾ + b) ≥ 1 ∀i",
           "Minimize Σ max(0, 1 - y⁽ⁱ⁾(wᵀx⁽ⁱ⁾ + b))",
-          "Maximize the log-likelihood of the labels"
+          "Maximize log-likelihood ของ labels"
         ],
         ans: 1,
-        exp: "Hard-margin SVM primal: min_{w,b} ½||w||² s.t. y⁽ⁱ⁾(wᵀx⁽ⁱ⁾ + b) ≥ 1 ∀i. Minimizing ||w||² is equivalent to maximizing margin 2/||w||. The constraints ensure all points are correctly classified with margin at least 1."
+        exp: "Hard-margin SVM primal: min_{w,b} ½||w||² s.t. y⁽ⁱ⁾(wᵀx⁽ⁱ⁾ + b) ≥ 1 ∀i การ minimize ||w||² เทียบเท่ากับ maximize margin 2/||w|| constraints บังคับให้ทุกจุดถูก classify ถูกต้องด้วย margin อย่างน้อย 1"
       },
       {
-        q: "The kernel trick in SVMs allows:",
+        q: "Kernel Trick ใน SVM ช่วยให้ทำอะไรได้?",
         opts: [
-          "Faster training on large datasets",
-          "Implicitly mapping data to high-dimensional feature spaces without explicitly computing the mapping",
-          "Handling multi-class problems directly",
-          "Training without labeled data"
+          "Training เร็วขึ้นบน large dataset",
+          "แปลงข้อมูลไปยัง feature space มิติสูงโดยนัยโดยไม่คำนวณ mapping จริง",
+          "จัดการ multi-class problem โดยตรง",
+          "Training โดยไม่ต้องมี labeled data"
         ],
         ans: 1,
-        exp: "The kernel trick: K(x, z) = φ(x)ᵀφ(z). We never compute φ(x) explicitly — we only need dot products in feature space, provided by the kernel function. This enables non-linear decision boundaries without the cost of high-dimensional computation."
+        exp: "Kernel Trick: K(x, z) = φ(x)ᵀφ(z) ไม่ต้องคำนวณ φ(x) โดยตรง — ต้องการเพียง dot product ใน feature space ที่ kernel function ให้มา ทำให้ได้ non-linear decision boundary โดยไม่ต้องจ่ายค่า computation ของ high-dimensional space"
       },
       {
-        q: "The Gaussian (RBF) kernel is defined as:",
+        q: "Gaussian (RBF) Kernel นิยามอย่างไร?",
         opts: [
           "K(x, z) = xᵀz",
           "K(x, z) = (xᵀz + 1)^d",
@@ -1247,54 +1161,32 @@ const TOPICS = [
           "K(x, z) = tanh(αxᵀz + c)"
         ],
         ans: 2,
-        exp: "RBF kernel: K(x, z) = exp(-||x-z||² / 2σ²). It corresponds to an infinite-dimensional feature space (Taylor expansion). It measures similarity by distance: K → 1 when x ≈ z, K → 0 when far apart. σ controls the width/radius of influence."
+        exp: "RBF kernel: K(x, z) = exp(-||x-z||² / 2σ²) สอดคล้องกับ infinite-dimensional feature space วัดความคล้ายกันตามระยะทาง: K → 1 เมื่อ x ≈ z, K → 0 เมื่ออยู่ไกล σ ควบคุมรัศมีของอิทธิพล"
       },
       {
-        q: "The soft-margin SVM introduces slack variables ξᵢ to:",
+        q: "Soft-Margin SVM แนะนำ Slack Variables ξᵢ เพื่ออะไร?",
         opts: [
-          "Remove the need for a kernel",
-          "Allow some training points to violate the margin, handling non-separable data",
-          "Increase the margin size",
-          "Speed up the dual problem"
+          "ลบ kernel ออก",
+          "อนุญาตให้ training points บางจุดละเมิด margin ได้ จัดการข้อมูล non-separable",
+          "เพิ่มขนาด margin",
+          "เร่ง dual problem"
         ],
         ans: 1,
-        exp: "When data isn't linearly separable, soft-margin SVM: min ½||w||² + C·Σξᵢ s.t. y⁽ⁱ⁾(wᵀx⁽ⁱ⁾+b) ≥ 1-ξᵢ, ξᵢ ≥ 0. ξᵢ is the amount by which point i violates the margin. C trades off margin width vs. constraint violations."
+        exp: "เมื่อข้อมูล linearly separable ไม่ได้ soft-margin SVM: min ½||w||² + C·Σξᵢ s.t. y⁽ⁱ⁾(wᵀx⁽ⁱ⁾+b) ≥ 1-ξᵢ, ξᵢ ≥ 0 ξᵢ คือปริมาณที่จุด i ละเมิด margin C สมดุลระหว่างขนาด margin กับการละเมิด constraints"
       },
       {
-        q: "In the soft-margin SVM, a large value of the regularization parameter C means:",
+        q: "ใน Soft-Margin SVM ค่า C ที่ใหญ่หมายความว่าอะไร?",
         opts: [
-          "A wider margin, more tolerant of violations",
-          "A smaller margin, fewer constraint violations — more fitting to training data",
-          "The kernel bandwidth is large",
-          "The model ignores support vectors"
+          "Margin กว้างขึ้น ยอมรับการละเมิดมากขึ้น",
+          "Margin เล็กลง การละเมิดน้อยลง — fit กับ training data มากขึ้น",
+          "Kernel bandwidth ใหญ่ขึ้น",
+          "โมเดลไม่สนใจ support vectors"
         ],
         ans: 1,
-        exp: "C = trade-off parameter. Large C: high cost for misclassification → small margin, few violations → risk of overfitting. Small C: low cost → allows violations → larger margin → more regularization → risk of underfitting."
+        exp: "C = trade-off parameter C ใหญ่: ค่าปรับ misclassification สูง → margin เล็ก, ละเมิดน้อย → เสี่ยง overfit C เล็ก: ค่าปรับต่ำ → อนุญาตการละเมิด → margin ใหญ่ → regularization มากขึ้น → เสี่ยง underfit"
       },
       {
-        q: "The SVM dual problem expresses the solution in terms of:",
-        opts: [
-          "The primal weights w directly",
-          "Lagrange multipliers αᵢ associated with each training point",
-          "The kernel matrix eigenvalues",
-          "The gradient of the hinge loss"
-        ],
-        ans: 1,
-        exp: "SVM dual: max Σαᵢ - ½Σᵢ Σⱼ αᵢαⱼy⁽ⁱ⁾y⁽ʲ⁾x⁽ⁱ⁾ᵀx⁽ʲ⁾ s.t. αᵢ ≥ 0, Σαᵢy⁽ⁱ⁾ = 0. Most αᵢ = 0; only support vectors have αᵢ > 0. The dual naturally uses dot products, enabling the kernel trick: replace xᵀz with K(x,z)."
-      },
-      {
-        q: "By the KKT complementarity condition, a point x⁽ⁱ⁾ is a support vector if and only if:",
-        opts: [
-          "αᵢ = 0",
-          "y⁽ⁱ⁾(wᵀx⁽ⁱ⁾ + b) > 1",
-          "αᵢ > 0, which implies y⁽ⁱ⁾(wᵀx⁽ⁱ⁾ + b) = 1",
-          "ξᵢ = 0"
-        ],
-        ans: 2,
-        exp: "KKT conditions: αᵢ(y⁽ⁱ⁾(wᵀx⁽ⁱ⁾+b) - 1) = 0. Either αᵢ = 0 (not a support vector, correctly classified with margin) OR y⁽ⁱ⁾(wᵀx⁽ⁱ⁾+b) = 1 (on the margin boundary, αᵢ > 0 → is a support vector)."
-      },
-      {
-        q: "The hinge loss for SVM can be written as:",
+        q: "Hinge Loss สำหรับ SVM เขียนได้ว่า:",
         opts: [
           "max(0, 1 - y·f(x))",
           "log(1 + e^(-y·f(x)))",
@@ -1302,7 +1194,18 @@ const TOPICS = [
           "|y - f(x)|"
         ],
         ans: 0,
-        exp: "Hinge loss: ℓ(y, f(x)) = max(0, 1 - y·f(x)). Zero loss when the prediction is correct with margin ≥ 1. Linear loss for violations. The soft-margin SVM minimizes ½||w||² + C·Σ max(0, 1 - y⁽ⁱ⁾(wᵀx⁽ⁱ⁾+b))."
+        exp: "Hinge loss: ℓ(y, f(x)) = max(0, 1 - y·f(x)) Loss เป็นศูนย์เมื่อ predict ถูกด้วย margin ≥ 1 Loss เชิงเส้นเมื่อมีการละเมิด Soft-margin SVM minimize ½||w||² + C·Σ max(0, 1 - y⁽ⁱ⁾(wᵀx⁽ⁱ⁾+b))"
+      },
+      {
+        q: "SVM Dual Problem แสดง solution ในรูปของอะไร?",
+        opts: [
+          "Primal weights w โดยตรง",
+          "Lagrange multipliers αᵢ ที่เกี่ยวข้องกับแต่ละ training point",
+          "Eigenvalues ของ kernel matrix",
+          "Gradient ของ hinge loss"
+        ],
+        ans: 1,
+        exp: "SVM dual: max Σαᵢ - ½Σᵢ Σⱼ αᵢαⱼy⁽ⁱ⁾y⁽ʲ⁾x⁽ⁱ⁾ᵀx⁽ʲ⁾ ส่วนใหญ่ αᵢ = 0 เฉพาะ support vectors มี αᵢ > 0 Dual ใช้ dot products ตามธรรมชาติ ทำให้ใช้ kernel trick ได้: แทน xᵀz ด้วย K(x,z)"
       }
     ]
   },
@@ -1311,103 +1214,92 @@ const TOPICS = [
     name: "Unsupervised Learning — Clustering",
     questions: [
       {
-        q: "The k-means algorithm's objective is to minimize:",
+        q: "เป้าหมายของ k-means algorithm คือการ minimize อะไร?",
         opts: [
-          "The number of clusters",
-          "The within-cluster sum of squared distances to cluster centroids",
-          "The distance between cluster centroids",
-          "The log-likelihood of a Gaussian mixture"
+          "จำนวน cluster",
+          "Within-cluster sum of squared distances ไปยัง centroid ของ cluster",
+          "ระยะทางระหว่าง cluster centroids",
+          "Log-likelihood ของ Gaussian mixture"
         ],
         ans: 1,
-        exp: "k-means minimizes: J = Σᵢ Σⱼ 1[c⁽ⁱ⁾=j] ||x⁽ⁱ⁾ - μⱼ||². This is the total within-cluster variance. Each point is assigned to its nearest centroid, and centroids are updated to the mean of their assigned points."
+        exp: "k-means minimize: J = Σᵢ Σⱼ 1[c⁽ⁱ⁾=j] ||x⁽ⁱ⁾ - μⱼ||² ซึ่งคือ total within-cluster variance แต่ละจุดถูก assign ไปยัง centroid ที่ใกล้ที่สุด แล้ว centroid อัปเดตเป็นค่าเฉลี่ยของจุดที่ถูก assign"
       },
       {
-        q: "In the k-means algorithm, after initializing centroids, each iteration involves:",
+        q: "ใน k-means algorithm แต่ละ iteration ทำอะไร?",
         opts: [
-          "Maximization then Expectation",
-          "Assign each point to nearest centroid (E-step), then update centroid to mean of assigned points (M-step)",
-          "Computing the covariance matrix and updating assignments",
-          "Splitting clusters until convergence"
+          "Maximization แล้ว Expectation",
+          "Assign แต่ละจุดไปยัง centroid ที่ใกล้ที่สุด (E-step) แล้วอัปเดต centroid เป็นค่าเฉลี่ยของจุดที่ถูก assign (M-step)",
+          "คำนวณ covariance matrix และอัปเดต assignments",
+          "แบ่ง cluster จนกว่าจะ converge"
         ],
         ans: 1,
-        exp: "K-means iterations: (1) Assignment: c⁽ⁱ⁾ = argminⱼ ||x⁽ⁱ⁾ - μⱼ||². (2) Update: μⱼ = mean of {x⁽ⁱ⁾ : c⁽ⁱ⁾ = j}. The distortion J never increases between iterations, guaranteeing convergence (though possibly to a local minimum)."
+        exp: "K-means iteration: (1) Assignment: c⁽ⁱ⁾ = argminⱼ ||x⁽ⁱ⁾ - μⱼ||² (2) Update: μⱼ = ค่าเฉลี่ยของ {x⁽ⁱ⁾ : c⁽ⁱ⁾ = j} Distortion J ไม่เพิ่มขึ้นระหว่าง iteration รับประกัน convergence (แม้อาจเป็น local minimum)"
       },
       {
-        q: "K-means is guaranteed to converge, but may converge to a local optimum. A common remedy is:",
+        q: "K-means รับประกัน convergence แต่อาจไปติด local optimum วิธีแก้ทั่วไปคือ:",
         opts: [
-          "Using a smaller k",
-          "Running k-means multiple times with different random initializations and keeping the best result",
-          "Increasing the number of iterations",
-          "Using L1 distance instead of L2"
+          "ใช้ k ที่เล็กกว่า",
+          "รัน k-means หลายครั้งด้วย random initialization ต่างกัน แล้วเก็บผลลัพธ์ที่ดีที่สุด",
+          "เพิ่มจำนวน iteration",
+          "ใช้ L1 distance แทน L2"
         ],
         ans: 1,
-        exp: "K-means is sensitive to initialization. Multiple restarts with different initial centroids (pick best J) help. K-means++ initialization (probabilistic seeding of centroids) is a principled alternative that tends to find better solutions."
+        exp: "K-means sensitive ต่อ initialization หลาย restart ด้วย random initial centroids ต่างกัน (เลือก J ที่ดีที่สุด) ช่วยได้ K-means++ initialization (probabilistic seeding) เป็นทางเลือกที่ดีกว่าซึ่งมักหา solution ที่ดีกว่า"
       },
       {
-        q: "The Expectation-Maximization (EM) algorithm for Gaussian Mixture Models (GMM) alternates between:",
+        q: "EM Algorithm สำหรับ Gaussian Mixture Model (GMM) สลับระหว่างอะไร?",
         opts: [
-          "Computing hard cluster assignments and updating means",
-          "E-step: compute soft responsibilities r⁽ⁱ⁾ⱼ = P(z⁽ⁱ⁾=j|x⁽ⁱ⁾); M-step: update parameters to maximize expected log-likelihood",
-          "Forward and backward passes through the network",
-          "Maximizing P(x|y) and P(y|x) alternately"
+          "คำนวณ hard cluster assignments และอัปเดต means",
+          "E-step: คำนวณ soft responsibilities r⁽ⁱ⁾ⱼ = P(z⁽ⁱ⁾=j|x⁽ⁱ⁾); M-step: อัปเดต parameters เพื่อ maximize expected log-likelihood",
+          "Forward และ backward pass ผ่าน network",
+          "Maximize P(x|y) และ P(y|x) สลับกัน"
         ],
         ans: 1,
-        exp: "EM for GMM: E-step: wⱼ⁽ⁱ⁾ = P(z⁽ⁱ⁾=j|x⁽ⁱ⁾; φ,μ,Σ) (soft responsibility of cluster j for point i). M-step: update φⱼ, μⱼ, Σⱼ using weighted MLE. Unlike k-means, points have fractional membership in multiple clusters."
+        exp: "EM สำหรับ GMM — E-step: wⱼ⁽ⁱ⁾ = P(z⁽ⁱ⁾=j|x⁽ⁱ⁾; φ,μ,Σ) (soft responsibility ของ cluster j สำหรับจุด i) M-step: อัปเดต φⱼ, μⱼ, Σⱼ ด้วย weighted MLE ต่างจาก k-means ที่จุดมีการเป็นสมาชิกแบบ fraction ในหลาย cluster"
       },
       {
-        q: "What is the relationship between k-means and EM for GMMs?",
+        q: "ความสัมพันธ์ระหว่าง k-means และ EM สำหรับ GMMs คืออะไร?",
         opts: [
-          "They are completely unrelated",
-          "K-means is a special case of EM where cluster assignments are hard (0/1) and all clusters have equal spherical covariance",
-          "EM for GMMs is a special case of k-means",
-          "K-means uses EM only in the initialization step"
+          "ทั้งสองไม่เกี่ยวข้องกันเลย",
+          "K-means เป็น special case ของ EM ที่ cluster assignment เป็นแบบ hard (0/1) และทุก cluster มี covariance เป็น spherical เท่ากัน",
+          "EM สำหรับ GMMs เป็น special case ของ k-means",
+          "K-means ใช้ EM เฉพาะตอน initialization"
         ],
         ans: 1,
-        exp: "K-means = EM for GMMs with: (1) hard assignments (each point belongs to exactly one cluster), (2) isotropic covariance Σⱼ = σ²I for all j. GMM-EM is the 'soft' generalization with probabilistic memberships."
+        exp: "K-means = EM สำหรับ GMMs ที่มี: (1) hard assignments (แต่ละจุดเป็นสมาชิกของ cluster เดียว) (2) covariance isotropic Σⱼ = σ²I สำหรับทุก j GMM-EM เป็นการขยายแบบ 'soft' ด้วย probabilistic memberships"
       },
       {
-        q: "How do we choose the optimal k in k-means clustering?",
+        q: "เราจะเลือก k ที่เหมาะสมใน k-means ได้อย่างไร?",
         opts: [
-          "Always use k=2",
-          "The elbow method: plot J vs k and look for an 'elbow' where adding more clusters gives diminishing returns",
-          "Use k = √n where n is the number of points",
-          "Choose k to minimize the Bayesian Information Criterion (BIC) on training loss"
+          "ใช้ k=2 เสมอ",
+          "Elbow method: plot J vs k แล้วหา 'ข้อศอก' ที่การเพิ่ม cluster ให้ผลตอบแทนลดลง",
+          "ใช้ k = √n โดย n คือจำนวนจุด",
+          "เลือก k ที่ minimize BIC บน training loss"
         ],
         ans: 1,
-        exp: "The elbow method: plot distortion J vs k. Adding clusters always reduces J, but the rate of decrease slows. The 'elbow' — where the curve bends — suggests a good k. Other methods: silhouette score, gap statistic, BIC for GMMs."
+        exp: "Elbow method: plot distortion J vs k การเพิ่ม cluster จะลด J เสมอ แต่อัตราการลดช้าลง 'ข้อศอก' ที่ curve งอบ่งชี้ k ที่เหมาะสม วิธีอื่นๆ: silhouette score, gap statistic, BIC สำหรับ GMMs"
       },
       {
-        q: "The mixing proportions φⱼ in a Gaussian Mixture Model represent:",
+        q: "EM Algorithm รับประกันอะไร?",
         opts: [
-          "The variance of each Gaussian component",
-          "The prior probability that a randomly chosen point belongs to component j",
-          "The distance between component means",
-          "The number of points in each cluster"
+          "หา global maximum ของ log-likelihood",
+          "Log-likelihood เพิ่มขึ้น (หรือคงที่) แบบ monotone ทุก iteration",
+          "Converge ใน O(n log n) iterations",
+          "ให้ cluster quality เท่ากับ k-means"
         ],
         ans: 1,
-        exp: "φⱼ = P(z=j): the prior probability that a data point is generated by component j. Σⱼ φⱼ = 1. After EM, φⱼ ≈ (fraction of data attributed to cluster j). The generative model: first pick a cluster from multinomial(φ), then sample from that Gaussian."
+        exp: "EM: ℓ(θ) ≥ ℓ(θ_old) ทุก iteration (likelihood ไม่ลดลง) นี่ตามมาจาก Jensen's inequality ที่ใช้กับ lower bound รับประกัน convergence ไปยัง local maximum แต่ไม่รับประกัน global maximum"
       },
       {
-        q: "The EM algorithm is guaranteed to:",
+        q: "Mixing proportions φⱼ ใน Gaussian Mixture Model แทนอะไร?",
         opts: [
-          "Find the global maximum of the log-likelihood",
-          "Monotonically increase the log-likelihood at each iteration (non-decreasing)",
-          "Converge in O(n log n) iterations",
-          "Produce k-means quality clusters"
+          "Variance ของแต่ละ Gaussian component",
+          "Prior probability ที่จุดที่สุ่มเลือกมาเป็นของ component j",
+          "ระยะทางระหว่าง component means",
+          "จำนวนจุดในแต่ละ cluster"
         ],
         ans: 1,
-        exp: "EM: ℓ(θ) ≥ ℓ(θ_old) at each iteration (likelihood never decreases). This follows from Jensen's inequality applied to the lower bound. Convergence to a local maximum is guaranteed, but the global maximum is not."
-      },
-      {
-        q: "Compared to k-means, GMM with EM can represent:",
-        opts: [
-          "Only spherical clusters",
-          "Elliptical clusters with varying orientations and sizes through full covariance matrices",
-          "Only two clusters",
-          "Only linearly separable clusters"
-        ],
-        ans: 1,
-        exp: "K-means assumes spherical clusters (isotropic). GMM can model elliptical clusters by learning full covariance matrices Σⱼ. This makes GMM more flexible for non-spherical, differently-sized, or oriented clusters."
+        exp: "φⱼ = P(z=j): prior probability ที่ data point ถูกสร้างโดย component j Σⱼ φⱼ = 1 หลัง EM, φⱼ ≈ (สัดส่วนข้อมูลที่ cluster j รับผิดชอบ) generative model: เลือก cluster จาก multinomial(φ) แล้ว sample จาก Gaussian นั้น"
       }
     ]
   },
@@ -1416,114 +1308,103 @@ const TOPICS = [
     name: "Dimensionality Reduction",
     questions: [
       {
-        q: "The primary goal of Principal Component Analysis (PCA) is to:",
+        q: "เป้าหมายหลักของ Principal Component Analysis (PCA) คืออะไร?",
         opts: [
-          "Find clusters in the data",
-          "Find orthogonal directions (principal components) that capture maximum variance",
-          "Minimize the number of features to exactly 2",
-          "Label unlabeled data"
+          "หา cluster ในข้อมูล",
+          "หาทิศทางตั้งฉากที่จับความแปรปรวนสูงสุด",
+          "ลด feature ให้เหลือ 2 เสมอ",
+          "กำหนด label ให้ข้อมูลที่ไม่มี label"
         ],
         ans: 1,
-        exp: "PCA: find k orthogonal directions u₁, u₂, ..., uₖ (principal components) that maximize the variance of the projected data. PC1 is the direction of highest variance, PC2 is orthogonal to PC1 with next highest variance, etc."
+        exp: "PCA: หา k ทิศทางตั้งฉาก u₁, u₂, ..., uₖ (principal components) ที่ maximize variance ของข้อมูลที่ project แล้ว PC1 คือทิศทางที่มีความแปรปรวนสูงสุด PC2 ตั้งฉาก PC1 และมีความแปรปรวนรองลงมา"
       },
       {
-        q: "PCA computes principal components as:",
+        q: "PCA คำนวณ Principal Components อย่างไร?",
         opts: [
-          "The columns of the data matrix X",
-          "The eigenvectors of the data covariance matrix Σ = (1/m)XᵀX",
-          "The rows of the Gram matrix",
-          "The gradient of the reconstruction error"
+          "จาก columns ของ data matrix X",
+          "จาก eigenvectors ของ covariance matrix Σ = (1/m)XᵀX",
+          "จาก rows ของ Gram matrix",
+          "จาก gradient ของ reconstruction error"
         ],
         ans: 1,
-        exp: "PCA: compute covariance matrix Σ = (1/m)XᵀX (after mean-centering). Eigendecomposition: Σ = UΛUᵀ. The columns of U are eigenvectors (principal components). The eigenvalue λᵢ = variance explained by PC i."
+        exp: "PCA: คำนวณ covariance matrix Σ = (1/m)XᵀX (หลัง mean-centering) eigendecomposition: Σ = UΛUᵀ columns ของ U คือ eigenvectors (principal components) eigenvalue λᵢ = variance ที่ PC i อธิบาย"
       },
       {
-        q: "After mean-centering, which of the following is the first step in computing PCA?",
+        q: "สัดส่วนของ variance ที่อธิบายโดย k Principal Component แรกคือ:",
         opts: [
-          "Apply k-means to the data",
-          "Compute and eigendecompose the sample covariance matrix",
-          "Normalize each feature to unit variance",
-          "Apply gradient descent to minimize reconstruction error"
-        ],
-        ans: 1,
-        exp: "PCA pipeline: (1) Mean-center the data. (2) Compute Σ = (1/m)XᵀX. (3) Compute SVD or eigendecomposition: Σ = UΛUᵀ. (4) Project data: z = Uᵀx (top k eigenvectors). Note: SVD of X directly is more numerically stable."
-      },
-      {
-        q: "The fraction of variance explained by the first k principal components is:",
-        opts: [
-          "k / p where p is the total number of features",
-          "Σᵢ₌₁ᵏ λᵢ / Σᵢ₌₁ᵖ λᵢ (sum of top k eigenvalues / sum of all eigenvalues)",
+          "k / p โดย p คือจำนวน features ทั้งหมด",
+          "Σᵢ₌₁ᵏ λᵢ / Σᵢ₌₁ᵖ λᵢ (ผลรวม eigenvalue k ตัวแรก / ผลรวม eigenvalue ทั้งหมด)",
           "λₖ / λ₁",
           "1 - (reconstruction error / total variance)"
         ],
         ans: 1,
-        exp: "Fraction of variance explained by first k PCs = Σᵢ₌₁ᵏ λᵢ / Σᵢ₌₁ᵖ λᵢ. Common practice: choose k to retain 95% or 99% of total variance. A scree plot shows eigenvalues in decreasing order to guide this choice."
+        exp: "Fraction of variance = Σᵢ₌₁ᵏ λᵢ / Σᵢ₌₁ᵖ λᵢ แนวทางทั่วไป: เลือก k ที่เก็บ variance ไว้ 95% หรือ 99% Scree plot แสดง eigenvalues ในลำดับลดลงเพื่อช่วยเลือก k"
       },
       {
-        q: "The 'curse of dimensionality' in high-dimensional spaces refers to:",
+        q: "'Curse of Dimensionality' หมายความว่าอะไร?",
         opts: [
-          "The difficulty of computing matrix inverses",
-          "The exponential increase in data needed to maintain sample density as dimensions increase",
-          "The impossibility of visualizing more than 3 dimensions",
-          "The fact that distance metrics become meaningless above 100 dimensions"
+          "ความยากในการคำนวณ matrix inverse",
+          "ข้อมูลที่ต้องการเพิ่มขึ้นแบบ exponential เพื่อรักษา sample density เมื่อจำนวน dimension เพิ่มขึ้น",
+          "ความเป็นไปไม่ได้ที่จะ visualize มากกว่า 3 มิติ",
+          "Distance metrics ไม่มีความหมายเมื่อมากกว่า 100 มิติ"
         ],
         ans: 1,
-        exp: "In d dimensions, to maintain fixed sample density, you need exponentially more data. Also: nearly all volume of a hypercube concentrates at the corners; distances between points concentrate (lose discriminative power). Dimensionality reduction mitigates these issues."
+        exp: "ใน d มิติ ต้องการข้อมูลเพิ่มขึ้นแบบ exponential เพื่อรักษา sample density คงที่ นอกจากนี้ volume เกือบทั้งหมดของ hypercube กระจุกตัวที่มุม และระยะทางระหว่างจุดมี discrimination power ลดลง Dimensionality reduction ช่วยลดปัญหาเหล่านี้"
       },
       {
-        q: "Independent Component Analysis (ICA) is used when:",
+        q: "Independent Component Analysis (ICA) ใช้เมื่อ:",
         opts: [
-          "We want to find the directions of maximum variance",
-          "We want to recover statistically independent source signals from their linear mixtures (e.g., cocktail party problem)",
-          "We want to cluster data points",
-          "We want to reduce dimensions while preserving distances"
+          "ต้องการหาทิศทางที่มี variance สูงสุด",
+          "ต้องการกู้คืน source signals ที่เป็นอิสระทางสถิติจากการผสมเชิงเส้น (เช่น cocktail party problem)",
+          "ต้องการ cluster data points",
+          "ต้องการลด dimension โดยรักษาระยะทาง"
         ],
         ans: 1,
-        exp: "ICA (cocktail party problem): observe X = AS where S contains independent source signals and A is an unknown mixing matrix. ICA recovers S by finding a demixing matrix W = A⁻¹ that maximizes statistical independence. Unlike PCA, ICA seeks independence, not uncorrelation."
+        exp: "ICA (cocktail party problem): observe X = AS โดย S มี independent source signals และ A คือ unknown mixing matrix ICA กู้คืน S โดยหา demixing matrix W = A⁻¹ ที่ maximize statistical independence ต่างจาก PCA ที่หา independence ไม่ใช่แค่ uncorrelation"
       },
       {
-        q: "PCA assumes the lower-dimensional structure of the data is:",
+        q: "PCA สมมติว่าโครงสร้าง low-dimensional ของข้อมูลเป็นอย่างไร?",
         opts: [
-          "Manifold-shaped (curved)",
-          "Clustered",
-          "Linear (a linear subspace)",
-          "Sparse"
+          "เป็น manifold (โค้ง)",
+          "เป็น cluster",
+          "เป็น linear (linear subspace)",
+          "เป็น sparse"
         ],
         ans: 2,
-        exp: "PCA finds the best linear subspace: it projects data onto hyperplanes. If the true low-dimensional structure is a non-linear manifold (e.g., Swiss roll), PCA will not unroll it. Non-linear methods: t-SNE, UMAP, kernel PCA, autoencoders."
+        exp: "PCA หา linear subspace ที่ดีที่สุด: project ข้อมูลบน hyperplane ถ้าโครงสร้าง low-dimensional ที่แท้จริงเป็น non-linear manifold (เช่น Swiss roll) PCA จะไม่สามารถ unroll ได้ วิธี non-linear: t-SNE, UMAP, kernel PCA, autoencoders"
       },
       {
-        q: "t-SNE (t-distributed Stochastic Neighbor Embedding) is primarily used for:",
+        q: "t-SNE ใช้สำหรับอะไรเป็นหลัก?",
         opts: [
-          "Compressing data for classification",
-          "Visualizing high-dimensional data in 2D/3D while preserving local neighborhood structure",
-          "Reconstructing original features from reduced dimensions",
+          "บีบอัดข้อมูลสำหรับ classification",
+          "Visualize ข้อมูล high-dimensional ใน 2D/3D โดยรักษา local neighborhood structure",
+          "Reconstruct original features จาก reduced dimensions",
           "Feature selection"
         ],
         ans: 1,
-        exp: "t-SNE is a non-linear dimensionality reduction method optimized for visualization (2D/3D). It preserves local structure (nearby points in high-dim remain nearby in low-dim) but not global structure. It uses a t-distribution (heavier tails) in the low-dim space to reduce crowding."
+        exp: "t-SNE เป็น non-linear dimensionality reduction ที่ optimized สำหรับ visualization (2D/3D) รักษา local structure (จุดที่ใกล้กันใน high-dim ยังคงใกล้กันใน low-dim) แต่ไม่รักษา global structure ใช้ t-distribution (heavy tails) ใน low-dim space เพื่อลด crowding"
       },
       {
-        q: "The reconstruction error in PCA after projecting to k dimensions is minimized because:",
+        q: "เมื่อใดควร standardize features ก่อนทำ PCA?",
         opts: [
-          "PCA finds the k directions of maximum variance, which are equivalent to the k directions that minimize reconstruction error",
-          "PCA uses gradient descent to minimize reconstruction error directly",
-          "PCA maximizes the Frobenius norm of the projection",
-          "The first k eigenvectors span the entire data space"
-        ],
-        ans: 0,
-        exp: "Fundamental equivalence in PCA: maximizing variance of projections = minimizing reconstruction error (||x - x̂||²). The top-k eigenvectors achieve both simultaneously. This is why PCA is optimal for linear compression."
-      },
-      {
-        q: "When should you apply feature normalization (standardization) before PCA?",
-        opts: [
-          "Never — PCA accounts for scale automatically",
-          "Only when features are binary",
-          "When features have very different scales/variances, so high-variance features don't dominate the PCs",
-          "Only for text data"
+          "ไม่ควร — PCA จัดการ scale อัตโนมัติ",
+          "เฉพาะ binary features",
+          "เมื่อ features มี scale/variance ต่างกันมาก เพื่อไม่ให้ features ที่มี variance สูงครอบงำ PCs",
+          "เฉพาะ text data"
         ],
         ans: 2,
-        exp: "If features have different scales (e.g., height in cm vs. income in thousands), PCA will be dominated by high-variance features. Standardize (subtract mean, divide by std) so each feature has unit variance before PCA. This ensures PCA captures meaningful variation, not just scale differences."
+        exp: "ถ้า features มี scale ต่างกัน (เช่น ความสูงหน่วย cm กับรายได้หน่วยพันบาท) PCA จะถูกครอบงำโดย features ที่มี variance สูง Standardize (ลบ mean หารด้วย std) ให้แต่ละ feature มี unit variance ก่อน PCA เพื่อให้จับ variation ที่มีความหมาย"
+      },
+      {
+        q: "Reconstruction Error ใน PCA ถูก minimize เพราะ:",
+        opts: [
+          "PCA หา k ทิศทางที่มี variance สูงสุดซึ่งเทียบเท่ากับ k ทิศทางที่ minimize reconstruction error",
+          "PCA ใช้ gradient descent เพื่อ minimize reconstruction error โดยตรง",
+          "PCA maximize Frobenius norm ของ projection",
+          "k eigenvectors แรก span ทั้ง data space"
+        ],
+        ans: 0,
+        exp: "Fundamental equivalence ใน PCA: maximize variance ของ projections = minimize reconstruction error (||x - x̂||²) top-k eigenvectors บรรลุทั้งสองพร้อมกัน นี่คือเหตุผลที่ PCA เหมาะสมที่สุดสำหรับ linear compression"
       }
     ]
   },
@@ -1532,51 +1413,51 @@ const TOPICS = [
     name: "Learning Theory",
     questions: [
       {
-        q: "The empirical risk minimization (ERM) principle selects:",
+        q: "หลักการ Empirical Risk Minimization (ERM) เลือก:",
         opts: [
-          "The hypothesis with lowest test error",
-          "The hypothesis that minimizes training error over the hypothesis class H",
-          "The most complex hypothesis",
-          "The hypothesis with lowest structural risk"
+          "Hypothesis ที่มี test error ต่ำสุด",
+          "Hypothesis ที่ minimize training error ใน hypothesis class H",
+          "Hypothesis ที่ซับซ้อนที่สุด",
+          "Hypothesis ที่มี structural risk ต่ำสุด"
         ],
         ans: 1,
-        exp: "ERM: h_ERM = argmin_{h∈H} (1/m)Σ ℓ(h(x⁽ⁱ⁾), y⁽ⁱ⁾). The risk is the expected loss; the empirical risk is its sample estimate. The gap between empirical risk and true risk is the generalization error."
+        exp: "ERM: h_ERM = argmin_{h∈H} (1/m)Σ ℓ(h(x⁽ⁱ⁾), y⁽ⁱ⁾) Risk คือ expected loss; empirical risk คือ sample estimate ของมัน ช่องว่างระหว่าง empirical risk และ true risk คือ generalization error"
       },
       {
-        q: "The union bound (Boole's inequality) states:",
+        q: "Union Bound (Boole's Inequality) กล่าวว่า:",
         opts: [
           "P(A ∩ B) ≤ P(A) + P(B)",
           "P(A₁ ∪ A₂ ∪ ... ∪ Aₖ) ≤ Σᵢ P(Aᵢ)",
-          "P(A | B) = P(A) when A and B are independent",
+          "P(A | B) = P(A) เมื่อ A และ B เป็นอิสระกัน",
           "P(A) ≥ 1 - Σᵢ P(Aᵢᶜ)"
         ],
         ans: 1,
-        exp: "Union bound: P(∪ᵢ Aᵢ) ≤ Σᵢ P(Aᵢ). Useful in ML theory for bounding the probability that ANY bad event (e.g., high test error for some h ∈ H) occurs by summing individual probabilities."
+        exp: "Union Bound: P(∪ᵢ Aᵢ) ≤ Σᵢ P(Aᵢ) มีประโยชน์ใน ML theory สำหรับ bound ความน่าจะเป็นที่เหตุการณ์เลวร้ายใดๆ (เช่น test error สูงสำหรับ h บางตัวใน H) เกิดขึ้น โดยบวก probability รายตัว"
       },
       {
-        q: "The Hoeffding inequality is used in ML theory to bound:",
+        q: "Hoeffding Inequality ใช้ใน ML theory เพื่อ bound อะไร?",
         opts: [
-          "The difference between two means",
-          "The probability that the empirical mean deviates from the true mean by more than ε",
-          "The variance of a Bernoulli random variable",
-          "The number of support vectors"
+          "ความแตกต่างระหว่าง 2 means",
+          "ความน่าจะเป็นที่ empirical mean เบี่ยงเบนจาก true mean มากกว่า ε",
+          "Variance ของ Bernoulli random variable",
+          "จำนวน support vectors"
         ],
         ans: 1,
-        exp: "Hoeffding: if Zᵢ are i.i.d. bounded random variables, P(|Z̄ - E[Z]| > ε) ≤ 2exp(-2mε²). In ML: the training error concentrates around test error with m training examples, providing finite-sample generalization guarantees."
+        exp: "Hoeffding: ถ้า Zᵢ เป็น i.i.d. bounded random variables, P(|Z̄ - E[Z]| > ε) ≤ 2exp(-2mε²) ใน ML: training error concentrates รอบ test error ด้วย m training examples ให้ finite-sample generalization guarantees"
       },
       {
-        q: "Probably Approximately Correct (PAC) learning requires finding a hypothesis h such that with probability at least 1-δ:",
+        q: "Probably Approximately Correct (PAC) Learning กำหนดให้หา hypothesis h ที่ด้วยความน่าจะเป็นอย่างน้อย 1-δ:",
         opts: [
-          "The training error is exactly zero",
-          "The generalization error ε(h) ≤ ε for user-chosen parameters ε, δ",
-          "The hypothesis matches the true concept on all possible inputs",
-          "The number of training examples is minimized"
+          "Training error เท่ากับศูนย์พอดี",
+          "Generalization error ε(h) ≤ ε สำหรับ ε, δ ที่ผู้ใช้กำหนด",
+          "Hypothesis ตรงกับ true concept บน input ที่เป็นไปได้ทั้งหมด",
+          "จำนวน training examples น้อยที่สุด"
         ],
         ans: 1,
-        exp: "PAC learning: for any ε > 0, δ > 0, and any distribution D, a learner sees m samples and outputs h with P[ε(h) > ε] ≤ δ. 'Probably' (probability ≥ 1-δ) 'Approximately' (error ≤ ε) 'Correct'. This characterizes what 'learning' means formally."
+        exp: "PAC learning: สำหรับ ε > 0, δ > 0 และ distribution D ใดๆ learner เห็น m samples แล้ว output h ที่ P[ε(h) > ε] ≤ δ 'Probably' (ความน่าจะเป็น ≥ 1-δ) 'Approximately' (error ≤ ε) 'Correct' นี่คือการกำหนดนิยามอย่างเป็นทางการของ 'การเรียนรู้'"
       },
       {
-        q: "For a finite hypothesis class |H| = k, the sample complexity needed for PAC learning is approximately:",
+        q: "สำหรับ finite hypothesis class |H| = k sample complexity ที่ต้องการสำหรับ PAC learning คือ:",
         opts: [
           "m ≥ k / ε",
           "m ≥ (1/2ε²) log(2k/δ)",
@@ -1584,32 +1465,32 @@ const TOPICS = [
           "m ≥ log(k) / ε²"
         ],
         ans: 1,
-        exp: "For finite H: m ≥ (1/2ε²) log(2|H|/δ). This follows from applying Hoeffding + union bound over all h ∈ H. The log factor means we need logarithmically more data for larger hypothesis classes — very efficient!"
+        exp: "สำหรับ finite H: m ≥ (1/2ε²) log(2|H|/δ) ตามมาจาก Hoeffding + union bound ครอบคลุม h ∈ H ทุกตัว log factor หมายความว่าต้องการข้อมูลเพิ่มขึ้นแบบ logarithmic สำหรับ hypothesis class ที่ใหญ่กว่า — ประหยัดมาก"
       },
       {
-        q: "The VC dimension of a hypothesis class H is defined as:",
+        q: "VC Dimension ของ hypothesis class H นิยามว่าอะไร?",
         opts: [
-          "The number of parameters in the model",
-          "The maximum number of points that can be shattered by H",
-          "The minimum sample size for PAC learning",
-          "The number of possible classifiers in H"
+          "จำนวน parameters ในโมเดล",
+          "จำนวนจุดสูงสุดที่ H สามารถ shatter ได้",
+          "Sample size ขั้นต่ำสำหรับ PAC learning",
+          "จำนวน classifier ที่เป็นไปได้ใน H"
         ],
         ans: 1,
-        exp: "VC (Vapnik-Chervonenkis) dimension d_VC = largest set of m points such that H can shatter them (classify all 2^m labelings). It measures the expressive capacity of H. Higher VC dim = more complex model = more data needed for good generalization."
+        exp: "VC (Vapnik-Chervonenkis) dimension d_VC = ชุดใหญ่สุดของ m จุดที่ H สามารถ shatter ได้ (classify ทุก 2^m labeling ได้) วัด expressive capacity ของ H VC dim สูง = โมเดลซับซ้อน = ต้องการข้อมูลมากขึ้นเพื่อ generalization ที่ดี"
       },
       {
-        q: "A hypothesis class H shatters a set of m points if:",
+        q: "Hypothesis class H shatters ชุดของ m จุดได้เมื่อ:",
         opts: [
-          "It achieves zero training error on the m points",
-          "It can correctly classify every possible labeling of the m points",
-          "Any two hypotheses in H agree on the m points",
-          "It achieves the maximum margin on the m points"
+          "บรรลุ training error เป็นศูนย์บน m จุด",
+          "สามารถ classify ทุก possible labeling ของ m จุดได้ถูกต้อง",
+          "hypothesis ใดๆ สอง hypothesis ใน H ให้ผลเหมือนกันบน m จุด",
+          "บรรลุ maximum margin บน m จุด"
         ],
         ans: 1,
-        exp: "Shattering: H shatters {x₁,...,xₘ} if for every binary labeling (y₁,...,yₘ) ∈ {0,1}^m, there exists h ∈ H that correctly classifies all m points with those labels. This requires |{(h(x₁),...,h(xₘ)) : h ∈ H}| = 2^m."
+        exp: "Shattering: H shatters {x₁,...,xₘ} ถ้าสำหรับทุก binary labeling (y₁,...,yₘ) ∈ {0,1}^m มี h ∈ H ที่ classify ทุก m จุดด้วย label เหล่านั้นได้ถูกต้อง ต้องการ |{(h(x₁),...,h(xₘ)) : h ∈ H}| = 2^m"
       },
       {
-        q: "The VC dimension of the class of linear classifiers (hyperplanes) in ℝᵈ is:",
+        q: "VC Dimension ของ linear classifiers (hyperplanes) ใน ℝᵈ คือ:",
         opts: [
           "d",
           "d + 1",
@@ -1617,32 +1498,32 @@ const TOPICS = [
           "d²"
         ],
         ans: 1,
-        exp: "VC dim of linear classifiers in ℝᵈ = d+1. You can always shatter d+1 points in general position (no d+1 points lie in a hyperplane). However, no set of d+2 points can be shattered. This connects VC dimension to the number of parameters."
+        exp: "VC dim ของ linear classifiers ใน ℝᵈ = d+1 สามารถ shatter d+1 จุดที่ 'general position' ได้เสมอ แต่ไม่มีชุด d+2 จุดใดที่ shatter ได้ นี่เชื่อม VC dimension กับจำนวน parameters"
       },
       {
-        q: "The Sauer-Shelah lemma states that for a hypothesis class with VC dimension d:",
+        q: "Sauer-Shelah Lemma กล่าวว่าสำหรับ hypothesis class ที่มี VC dimension d:",
         opts: [
-          "The growth function Π_H(m) = 2^m for all m",
-          "The growth function Π_H(m) ≤ Σᵢ₌₀ᵈ C(m,i) = O(mᵈ) for m > d",
-          "The sample complexity is Ω(d) examples",
-          "The class can shatter any set of d points"
+          "Growth function Π_H(m) = 2^m สำหรับทุก m",
+          "Growth function Π_H(m) ≤ Σᵢ₌₀ᵈ C(m,i) = O(mᵈ) เมื่อ m > d",
+          "Sample complexity คือ Ω(d) examples",
+          "H สามารถ shatter จุดใดๆ d จุดได้"
         ],
         ans: 1,
-        exp: "Sauer-Shelah: the growth function (number of distinct dichotomies on m points) is at most Σᵢ₌₀ᵈ C(m,i). For m > d, this is polynomial O(mᵈ), not exponential 2^m. This polynomial growth enables generalization bounds for infinite hypothesis classes."
+        exp: "Sauer-Shelah: growth function (จำนวน dichotomies ที่ต่างกันบน m จุด) ≤ Σᵢ₌₀ᵈ C(m,i) สำหรับ m > d นี่คือ polynomial O(mᵈ) ไม่ใช่ exponential 2^m polynomial growth นี้ทำให้ generalization bounds สำหรับ infinite hypothesis class เป็นไปได้"
       },
       {
-        q: "Structural Risk Minimization (SRM) selects models by:",
+        q: "Structural Risk Minimization (SRM) เลือกโมเดลโดย:",
         opts: [
-          "Always choosing the most complex model",
-          "Minimizing training error only",
-          "Minimizing a bound on generalization error = training error + complexity penalty",
-          "Cross-validating over model complexity levels"
+          "เลือกโมเดลที่ซับซ้อนที่สุดเสมอ",
+          "Minimize เฉพาะ training error",
+          "Minimize upper bound ของ generalization error = training error + complexity penalty",
+          "Cross-validate ระหว่าง complexity levels"
         ],
         ans: 2,
-        exp: "SRM: minimize ε̂(h) + complexity_penalty(H), where the penalty comes from VC theory. Simpler models (lower VC dim) have smaller penalties. SRM formalizes Occam's Razor: prefer the simplest hypothesis that fits the data, explicitly trading off fit vs. complexity."
+        exp: "SRM: minimize ε̂(h) + complexity_penalty(H) โดย penalty มาจาก VC theory โมเดลง่าย (VC dim ต่ำ) มี penalty น้อย SRM ทำให้ Occam's Razor เป็นรูปธรรม: เลือก hypothesis ที่ง่ายที่สุดที่ fit ข้อมูล โดย trade-off ระหว่าง fit กับ complexity อย่างชัดเจน"
       },
       {
-        q: "The bias-variance decomposition of expected test MSE is:",
+        q: "Bias-Variance Decomposition ของ Expected Test MSE คือ:",
         opts: [
           "Bias + Variance",
           "Bias² + Variance + Irreducible noise",
@@ -1650,13 +1531,12 @@ const TOPICS = [
           "Empirical risk + Regularization penalty"
         ],
         ans: 1,
-        exp: "E[(y - ĥ(x))²] = [Bias(ĥ(x))]² + Var(ĥ(x)) + σ². Bias² = (E[ĥ] - f)²: systematic error. Variance = E[(ĥ - E[ĥ])²]: sensitivity to training data. σ² = irreducible noise. Minimizing total MSE requires balancing bias and variance."
+        exp: "E[(y - ĥ(x))²] = [Bias(ĥ(x))]² + Var(ĥ(x)) + σ² Bias² = (E[ĥ] - f)²: systematic error Variance = E[(ĥ - E[ĥ])²]: sensitivity ต่อ training data σ² = irreducible noise การ minimize total MSE ต้องสมดุล bias และ variance"
       }
     ]
   }
 ];
 
-// State
 let currentTopic = null;
 let currentQuestions = [];
 let currentIdx = 0;
@@ -1664,11 +1544,13 @@ let score = 0;
 let answered = false;
 let scores = {};
 
+document.getElementById('totalQ').textContent = TOPICS.reduce((s,t)=>s+t.questions.length,0);
+
 function shuffle(arr) {
   const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+  for (let i = a.length-1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
   }
   return a;
 }
@@ -1685,11 +1567,13 @@ function renderHome() {
         <div class="topic-num">${String(i+1).padStart(2,'0')}</div>
         <div class="topic-info">
           <div class="topic-name">${topic.name}</div>
-          <div class="topic-meta">${topic.questions.length} questions</div>
+          <div class="topic-meta">${topic.questions.length} ข้อ</div>
         </div>
       </div>
-      ${sc !== undefined ? `<div class="topic-score">${sc}/${topic.questions.length}</div>` : ''}
-      <div class="topic-arrow">›</div>
+      <div class="topic-right">
+        ${sc !== undefined ? `<div class="topic-score">${sc}/${topic.questions.length}</div>` : ''}
+        <div class="topic-arrow">›</div>
+      </div>
     `;
     card.onclick = () => startQuiz(topic.id);
     grid.appendChild(card);
@@ -1702,25 +1586,23 @@ function startQuiz(topicId) {
   currentIdx = 0;
   score = 0;
   answered = false;
-
   document.getElementById('home').style.display = 'none';
   document.getElementById('result').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
   document.getElementById('quizTopicLabel').textContent = currentTopic.name;
   renderQuestion();
+  window.scrollTo({top:0});
 }
 
 function renderQuestion() {
   answered = false;
   const q = currentQuestions[currentIdx];
   const total = currentQuestions.length;
-
-  // Progress
   const pct = (currentIdx / total) * 100;
   document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = `${currentIdx + 1} / ${total}`;
+  document.getElementById('progressLabel').textContent = `${currentIdx+1} / ${total}`;
 
-  const keys = ['A', 'B', 'C', 'D'];
+  const keys = ['ก','ข','ค','ง'];
   const card = document.getElementById('questionCard');
 
   let optsHtml = q.opts.map((opt, i) => `
@@ -1731,12 +1613,12 @@ function renderQuestion() {
   `).join('');
 
   card.innerHTML = `
-    <div class="question-number">Question ${currentIdx + 1} of ${total}</div>
+    <div class="question-number">ข้อที่ ${currentIdx+1} จาก ${total}</div>
     <div class="question-text">${q.q}</div>
     <div class="options">${optsHtml}</div>
     <div id="explanation"></div>
     <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
-      ${currentIdx + 1 < total ? 'Next Question →' : 'See Results →'}
+      ${currentIdx+1 < total ? 'ข้อถัดไป →' : 'ดูผลคะแนน →'}
     </button>
   `;
 }
@@ -1744,22 +1626,18 @@ function renderQuestion() {
 function selectAnswer(selected) {
   if (answered) return;
   answered = true;
-
   const q = currentQuestions[currentIdx];
   const isCorrect = selected === q.ans;
   if (isCorrect) score++;
 
-  // Disable all buttons
   document.querySelectorAll('.option-btn').forEach((btn, i) => {
     btn.disabled = true;
     if (i === q.ans) btn.classList.add('correct');
     else if (i === selected && !isCorrect) btn.classList.add('wrong');
   });
 
-  // Show explanation
   const exp = document.getElementById('explanation');
-  exp.innerHTML = `<div class="explanation"><strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect'}</strong>${q.exp}</div>`;
-  exp.style.display = 'block';
+  exp.innerHTML = `<div class="explanation"><strong>${isCorrect ? '✓ ถูกต้อง!' : '✗ ไม่ถูกต้อง'}</strong>${q.exp}</div>`;
 
   document.getElementById('nextBtn').style.display = 'block';
 }
@@ -1770,7 +1648,7 @@ function nextQuestion() {
     showResult();
   } else {
     renderQuestion();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
 }
 
@@ -1781,25 +1659,22 @@ function showResult() {
 
   document.getElementById('quiz').style.display = 'none';
   document.getElementById('result').style.display = 'block';
-
   document.getElementById('resultPct').textContent = pct + '%';
 
   let grade, gradeCls, title, sub;
-  if (pct >= 90) { grade = 'S'; gradeCls = 'grade-s'; title = 'Excellent!'; sub = 'You have a strong grasp of this topic.'; }
-  else if (pct >= 75) { grade = 'A'; gradeCls = 'grade-a'; title = 'Great job!'; sub = 'Well done — review the missed questions to perfect your understanding.'; }
-  else if (pct >= 55) { grade = 'B'; gradeCls = 'grade-b'; title = 'Good effort'; sub = 'Solid foundation. Revisit the explanations for the questions you missed.'; }
-  else { grade = 'C'; gradeCls = 'grade-c'; title = 'Keep practicing'; sub = 'Review the material and try again. Check the explanations carefully.'; }
+  if (pct >= 90) { grade = 'ระดับดีเยี่ยม'; gradeCls = 'grade-s'; title = 'ยอดเยี่ยมมาก!'; sub = 'คุณเข้าใจหัวข้อนี้อย่างลึกซึ้ง ทำต่อไปได้เลย!'; }
+  else if (pct >= 75) { grade = 'ระดับดีมาก'; gradeCls = 'grade-a'; title = 'ทำได้ดีมาก!'; sub = 'ผลลัพธ์ดี ลองทบทวนข้อที่ตอบผิดเพื่อเสริมความเข้าใจ'; }
+  else if (pct >= 55) { grade = 'ระดับดี'; gradeCls = 'grade-b'; title = 'ผ่านได้!'; sub = 'พื้นฐานดี แต่ควรทบทวนเนื้อหาและอ่านคำอธิบายอีกครั้ง'; }
+  else { grade = 'ต้องทบทวนเพิ่ม'; gradeCls = 'grade-c'; title = 'ฝึกฝนต่อไปนะ!'; sub = 'กลับไปทบทวนเนื้อหาและลองทำใหม่อีกครั้ง อ่านคำอธิบายแต่ละข้ออย่างละเอียด'; }
 
-  document.getElementById('gradeBadge').textContent = 'Grade ' + grade;
+  document.getElementById('gradeBadge').textContent = grade;
   document.getElementById('gradeBadge').className = 'grade-badge ' + gradeCls;
   document.getElementById('resultTitle').textContent = title;
   document.getElementById('resultSub').textContent = sub;
-  document.getElementById('correctChip').textContent = `✓ ${score} correct`;
-  document.getElementById('wrongChip').textContent = `✗ ${total - score} wrong`;
-
+  document.getElementById('correctChip').textContent = `✓ ถูก ${score} ข้อ`;
+  document.getElementById('wrongChip').textContent = `✗ ผิด ${total - score} ข้อ`;
   document.getElementById('retryBtn').onclick = () => startQuiz(currentTopic.id);
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function goHome() {
@@ -1807,10 +1682,9 @@ function goHome() {
   document.getElementById('result').style.display = 'none';
   document.getElementById('home').style.display = 'block';
   renderHome();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-// Init
 renderHome();
 </script>
 </body>
